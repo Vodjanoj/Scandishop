@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import ProductList from "./ProductList";
 import { withRouter } from "react-router-dom";
+
 import { getProductsByCategory } from "../../graphql/queries";
 
 class Category extends Component {
@@ -25,7 +27,7 @@ class Category extends Component {
 
       this.setState((prevState) => {
         return {
-          ...prevState, 
+          ...prevState,
           productsByCategory: loadedProductsByCat,
         };
       });
@@ -48,12 +50,19 @@ class Category extends Component {
     }
   }
   render() {
+    console.log('category:', this.props.crntCurrency.symbol)
     return (
       <>
-        <ProductList items={this.state.productsByCategory} />
+        <ProductList symbol={this.props.crntCurrency.symbol} items={this.state.productsByCategory} />
       </>
     );
   }
 }
 
-export default withRouter(Category);
+const mapStateToProps = (state) => {
+  return {
+    crntCurrency: state.currency.setCurrency,
+  };
+};
+
+export default connect(mapStateToProps, null)(withRouter(Category));

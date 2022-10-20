@@ -13,6 +13,7 @@ class ProductList extends Component {
             <ProductItem
               id={item.id}
               key={index}
+              symbol={this.props.symbol}
               brand={item.brand}
               name={item.name}
               price={item.price}

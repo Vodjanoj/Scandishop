@@ -45,3 +45,7 @@
   line-height: 1.2;
   text-transform: uppercase;
 }
+
+.toolbar {
+  display: flex;
+}

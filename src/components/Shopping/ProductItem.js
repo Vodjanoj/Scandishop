@@ -18,7 +18,7 @@ class ProductItem extends Component {
               <div className={classes.name}>
                 {this.props.brand} {this.props.name}
               </div>
-              <div className={classes.price}>$50</div>
+              <div className={classes.price}>{this.props.symbol}50</div>
             </div>
           </Link>
         </div>
