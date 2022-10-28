@@ -1,11 +1,19 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import ProductItem from "./ProductItem";
 import classes from "./ProductList.module.css";
 
 class ProductList extends Component {
+  filterPrices(prices, currSymbol) {
+    const filteredPrice = prices.filter(
+      (price) => price.currency.symbol === currSymbol
+    );
+
+    return filteredPrice;
+  }
+
   render() {
-    console.log('ProductList', this.props.items);
+
     return (
       <>
         <div className={classes.products}>
@@ -13,10 +21,10 @@ class ProductList extends Component {
             <ProductItem
               id={item.id}
               key={index}
-              symbol={this.props.symbol}
               brand={item.brand}
               name={item.name}
-              price={item.price}
+              prices={item.prices}
+              currPrice={this.filterPrices(item.prices, this.props.setCurrSymbol)}
               image={item.image}
             />
           ))}
@@ -26,4 +34,10 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+const mapStateToProps = (state) => {
+  return {
+    setCurrSymbol: state.currency.setCurrSymbol,
+  };
+};
+
+export default connect(mapStateToProps, null)(ProductList);

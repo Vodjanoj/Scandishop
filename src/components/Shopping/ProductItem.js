@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 class ProductItem extends Component {
   render() {
     const categoryName = this.props.match.params.categoryName;
-
+    const { symbol } = this.props.currPrice[0].currency;
+    const { amount } = this.props.currPrice[0];
     return (
       <>
         <div className={classes.product}>
@@ -18,7 +19,10 @@ class ProductItem extends Component {
               <div className={classes.name}>
                 {this.props.brand} {this.props.name}
               </div>
-              <div className={classes.price}>{this.props.symbol}50</div>
+              {/* should be more beautiful, too long */}
+              <div className={classes.price}>
+                {symbol} {amount}
+              </div>
             </div>
           </Link>
         </div>

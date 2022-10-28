@@ -10,22 +10,17 @@ class MainNavigation extends Component {
   };
 
   componentDidMount() {
-    console.log('componentDidMount1')
-    const loadAllCageriesHandler = async () => {
+    const loadAllCategoriesHandler = async () => {
       const data = await getCategories();
 
       this.setState({
         allCategories: data,
       });
     };
-    loadAllCageriesHandler();
-     
+    loadAllCategoriesHandler();
   }
 
-  
-
   render() {
-    console.log("render");
     return (
       <header className={classes.header}>
         <div className={classes.inner}>

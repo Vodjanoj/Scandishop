@@ -13,7 +13,7 @@ class App extends Component {
   componentDidMount() {
     const loadAllCageriesHandler = async () => {
       const data = await getCategories();
-      console.log("dataApp", data);
+    
 
       this.setState({
         allCategory: data[0].name,
@@ -34,7 +34,7 @@ class App extends Component {
   // }
 
   render() {
-    console.log("this.state.allCategories", this.state.allCategory);
+
     return (
       <div>
         <Layout>

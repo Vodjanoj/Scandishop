@@ -19,9 +19,23 @@ export async function getCategories() {
     data: { categories },
   } = await client.query({ query });
 
-  console.log("categories query:", categories);
 
   return categories;
+}
+
+export async function getCurrencies() {
+  const query = gql`
+    query {
+      currencies {
+        label
+        symbol
+      }
+    }
+  `;
+  const {
+    data: { currencies },
+  } = await client.query({ query });
+  return currencies;
 }
 
 export async function getProductsByCategory(categoryType) {

@@ -22,6 +22,7 @@ class Category extends Component {
           brand: data[key].brand,
           name: data[key].name,
           image: data[key].gallery[0],
+          prices: data[key].prices,
         });
       }
 
@@ -37,7 +38,7 @@ class Category extends Component {
 
   componentDidMount() {
     const categoryName = this.props.match.params.categoryName;
-    console.log("did mount");
+
     this.getData(categoryName);
   }
 
@@ -50,19 +51,14 @@ class Category extends Component {
     }
   }
   render() {
-    console.log('category:', this.props.crntCurrency.symbol)
+    // console.log('categoryAllProps:', this.props)
+    // console.log('categoryCerrencyfromStore:', this.props.setCurrSymbol)
     return (
       <>
-        <ProductList symbol={this.props.crntCurrency.symbol} items={this.state.productsByCategory} />
+        <ProductList items={this.state.productsByCategory} />
       </>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    crntCurrency: state.currency.setCurrency,
-  };
-};
-
-export default connect(mapStateToProps, null)(withRouter(Category));
+export default withRouter(Category);
