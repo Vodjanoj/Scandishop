@@ -19,7 +19,6 @@ export async function getCategories() {
     data: { categories },
   } = await client.query({ query });
 
-
   return categories;
 }
 
@@ -38,9 +37,48 @@ export async function getCurrencies() {
   return currencies;
 }
 
+export async function getProductsById(id) {
+  const query = gql`
+    query ProductQuery($id: String!) {
+      product(id: $id) {
+        id
+        name
+        inStock
+        gallery
+        description
+        category
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
+        }
+        brand
+      }
+    }
+  `;
+  const variables = { id };
+  const {
+    data: { product },
+  } = await client.query({ query, variables });
+
+  return product;
+}
+
 export async function getProductsByCategory(categoryType) {
   const query = gql`
-    query productsByCategoryQuery($categoryType: String!) {
+    query ProductsByCategoryQuery($categoryType: String!) {
       category(input: { title: $categoryType }) {
         name
         products {

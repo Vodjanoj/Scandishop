@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Layout from "./components/layout/Layout";
 import Category from "./components/Shopping/Category";
-import Shopping from "./components/Shopping/Shopping";
+import ProductDetails from "./components/Shopping/ProductDetails";
 import { getCategories } from "./graphql/queries";
 import { Route, Switch, Redirect } from "react-router-dom";
 
@@ -13,7 +13,6 @@ class App extends Component {
   componentDidMount() {
     const loadAllCageriesHandler = async () => {
       const data = await getCategories();
-    
 
       this.setState({
         allCategory: data[0].name,
@@ -34,7 +33,6 @@ class App extends Component {
   // }
 
   render() {
-
     return (
       <div>
         <Layout>
@@ -48,7 +46,7 @@ class App extends Component {
               <Category />
             </Route>
             <Route path="/categories/:categoryName/:productId">
-              <div>Hello</div>
+               <ProductDetails />
             </Route>
           </Switch>
         </Layout>

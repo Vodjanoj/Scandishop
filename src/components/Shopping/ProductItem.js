@@ -19,9 +19,8 @@ class ProductItem extends Component {
               <div className={classes.name}>
                 {this.props.brand} {this.props.name}
               </div>
-              {/* should be more beautiful, too long */}
               <div className={classes.price}>
-                {symbol} {amount}
+                {symbol}{amount}
               </div>
             </div>
           </Link>

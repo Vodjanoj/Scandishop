@@ -1,0 +1,29 @@
+.button {
+  border: none;
+  padding: 15px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+button:active {
+    color: black;
+}
+/* .Green {
+  background-color: #44ff03;
+}
+
+.Cyan {
+  background-color: #03fff7;
+}
+
+.Bule {
+  background-color: #44ff03;
+}
+
+.Green {
+  background-color: #44ff03;
+} */
