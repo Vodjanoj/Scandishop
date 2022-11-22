@@ -9,8 +9,8 @@
   cursor: pointer;
 }
 
-button:active {
-    color: black;
+.button.clicked {
+  border: 0.1px solid black;
 }
 /* .Green {
   background-color: #44ff03;

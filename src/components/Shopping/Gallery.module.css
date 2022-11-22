@@ -1,0 +1,30 @@
+.gallery {
+    margin-right: 40px;
+    width: 6.4%;
+  }
+
+  .item {
+    margin-bottom: 40px;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+  }
+
+  .item img {
+    display: block;
+    height: auto;
+    width: 80px;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+  }
+
+  .selected-image {
+    width: 50%;
+  }
+  
+  .selected-image img {
+    display: block;
+    height: 511px;
+    width: auto;
+  }

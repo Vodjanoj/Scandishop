@@ -1,33 +1,87 @@
 import React, { Component } from "react";
 import ProductAttributes from "./ProductAttributes";
+import { connect } from "react-redux";
 import { getProductsById } from "../../graphql/queries";
 import classes from "./ProductDetails.module.css";
 import { withRouter } from "react-router-dom";
+import Gallery from "./Gallery";
 
 class ProductDetails extends Component {
   state = {
     productDetails: [],
+    selectedImage: null,
+    selectedAttributes: [],
   };
-
+  
   createMarkup = () => {
     return { __html: this.state.productDetails.description };
   };
 
-  checkProduct = (id) => {
-    console.log("id", id);
+  // should be exported to one UTILS file
+  filterPrices = (prices, currSymbol) => {
+    const result = prices.filter(
+      (price) => price.currency.symbol === currSymbol
+    );
+
+    return result;
   };
 
+  onSelectAttrHandler = (attId, attItemId) => {
+    const updatedSelcAttr = this.state.selectedAttributes.map((attribute) =>
+      attribute.id === attId
+        ? { ...attribute, selectedAttrItemId: attItemId }
+        : attribute
+    );
+
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        selectedAttributes: updatedSelcAttr,
+      };
+    });
+  };
+
+  selectImageHandler = (image) => {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        selectedImage: image,
+      };
+    });
+  };
+
+  // onSelecItem = (atrrib) => {
+  //   console.log("id", atrrib);
+  //   this.setState((prevState) => {
+  //     return {
+  //       ...prevState,
+  //       isAttrSelected: !this.state.isAttrSelected,
+  //       option: atrrib
+  //     };
+  //   });
+  // };
+
   componentDidMount() {
-    console.log("mounted");
     const productId = this.props.match.params.productId;
     console.log("productId", productId);
     const loadProductDetailsHandler = async () => {
       const data = await getProductsById(productId);
 
+      const selectedAttributes = data.attributes.map((attribute) => ({
+        id: attribute.id,
+        name: attribute.name,
+        selectedAttrItemId: attribute.items[0].id,
+      }));
+
+      console.log("myAttributes", data);
+      console.log("selectedAttributes", selectedAttributes);
+
       this.setState((prevState) => {
         return {
           ...prevState,
           productDetails: data,
+          selectedImage: data.gallery[0],
+          selectedAttributes: selectedAttributes,
         };
       });
     };
@@ -35,41 +89,76 @@ class ProductDetails extends Component {
   }
   render() {
     if (this.state.productDetails) {
-      console.log("productDetails", this.state.productDetails.description);
+      console.log("this.state", this.state);
     }
-    if (this.state.productDetails.attributes) {
-      console.log("productAttr", this.state.productDetails);
+
+    let price;
+
+    if (this.state.productDetails.prices && this.props.currSymbol !== "") {
+      const amount = this.filterPrices(
+        this.state.productDetails.prices,
+        this.props.setCurrSymbol
+      );
+      price = amount[0].amount;
     }
+
     return (
       <>
-        <div>
-          {this.state.productDetails.attributes && (
-            <img
-              src={this.state.productDetails.gallery[0]}
-              style={{ height: "400px" }}
-            ></img>
-          )}
-        </div>
+        <div className={classes.details}>
+          <Gallery
+            onSelectImage={this.selectImageHandler}
+            selectedImage={this.state.selectedImage}
+            images={this.state.productDetails.gallery}
+          />
 
-        {this.state.productDetails.attributes && (
-          <div className={classes.description} dangerouslySetInnerHTML={this.createMarkup()} />
-        )}
+          <div className={classes.order}>
+            <div>{this.state.productDetails.brand}</div>
+            <div>{this.state.productDetails.name}</div>
 
-        {this.state.productDetails.attributes && (
-          <div>
-            {this.state.productDetails.attributes.map((item, index) => (
-              <ProductAttributes
-                key={index + item.id}
-                name={item.name}
-                attributes={item.items}
-                checkItem={this.checkProduct.bind(this, item.name)}
-              />
-            ))}
+            {this.state.productDetails.attributes && (
+              <div className={classes.attributes}>
+                {this.state.productDetails.attributes.map(
+                  (attribute, index) => {
+                    let selectedAttribute = this.state.selectedAttributes.find(
+                      (selectAtr) => attribute.id === selectAtr.id
+                    );
+                    return (
+                      <ProductAttributes
+                        key={index + attribute.id}
+                        name={attribute.name}
+                        attributes={attribute}
+                        selected={
+                          selectedAttribute
+                            ? selectedAttribute.selectedAttrItemId
+                            : ""
+                        }
+                        onSelectAttr={this.onSelectAttrHandler}
+                      />
+                    );
+                  }
+                )}
+              </div>
+            )}
+            <div>
+              {this.props.setCurrSymbol}
+              {price}
+            </div>
+            <div
+              className={classes.description}
+              dangerouslySetInnerHTML={this.createMarkup()}
+            />
+            <button className={classes.button}></button>
           </div>
-        )}
+        </div>
       </>
     );
   }
 }
 
-export default withRouter(ProductDetails);
+const mapStateToProps = (state) => {
+  return {
+    setCurrSymbol: state.currency.setCurrSymbol,
+  };
+};
+
+export default connect(mapStateToProps, null)(withRouter(ProductDetails));

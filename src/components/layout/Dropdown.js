@@ -21,7 +21,7 @@ class Dropdown extends Component {
     loadAllCurrenciesHandler();
 
     this.props.onInitCurrency(); // Redux Thunk
-    console.log("mounted");
+ 
   }
 
   toggleDropdownHandler = () => {

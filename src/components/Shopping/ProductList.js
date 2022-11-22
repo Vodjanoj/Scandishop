@@ -17,20 +17,18 @@ class ProductList extends Component {
       <>
         <div className={classes.products}>
           {this.props.items.map((item, index) => (
-             
-              <ProductItem
-                id={item.id}
-                key={index}
-                brand={item.brand}
-                name={item.name}
-                prices={item.prices}
-                currPrice={this.filterPrices(
-                  item.prices,
-                  this.props.setCurrSymbol
-                )}
-                image={item.image}
-              />
-          
+            <ProductItem
+              id={item.id}
+              key={index}
+              brand={item.brand}
+              name={item.name}
+              prices={item.prices}
+              currPrice={this.filterPrices(
+                item.prices,
+                this.props.setCurrSymbol
+              )}
+              image={item.image}
+            />
           ))}
         </div>
       </>
