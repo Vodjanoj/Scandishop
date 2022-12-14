@@ -1,7 +1,8 @@
 .dropdown {
   background-color: bisque;
-  width: 90px;
+  width: 50px;
   position: relative;
+  z-index: 1003;
 }
 
 .dropdown ul {
@@ -11,4 +12,5 @@
   box-shadow: 0 4px 35px rgba(168, 172, 176, 0.19);
   left: 0;
   top: 100%;
+  z-index: 10;
 }

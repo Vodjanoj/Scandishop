@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import ProductAttributes from "./ProductAttributes";
 import { connect } from "react-redux";
+import { filterPrices } from '../Utils/filterPrices';
 import { getProductsById } from "../../graphql/queries";
 import classes from "./ProductDetails.module.css";
 import { withRouter } from "react-router-dom";
+import { cartActions } from "../../store/cart-slice";
 import Gallery from "./Gallery";
 
 class ProductDetails extends Component {
@@ -12,19 +14,12 @@ class ProductDetails extends Component {
     selectedImage: null,
     selectedAttributes: [],
   };
-  
+
   createMarkup = () => {
     return { __html: this.state.productDetails.description };
   };
 
-  // should be exported to one UTILS file
-  filterPrices = (prices, currSymbol) => {
-    const result = prices.filter(
-      (price) => price.currency.symbol === currSymbol
-    );
-
-    return result;
-  };
+  
 
   onSelectAttrHandler = (attId, attItemId) => {
     const updatedSelcAttr = this.state.selectedAttributes.map((attribute) =>
@@ -47,6 +42,24 @@ class ProductDetails extends Component {
         ...prevState,
         selectedImage: image,
       };
+    });
+  };
+
+  addToCartHandler = () => {
+    const idForCart = this.state.selectedAttributes.reduce(
+      (collectAttr, currentAtrItem) =>
+        collectAttr + "_" + currentAtrItem.selectedAttrItemId,
+      ""
+    );
+
+    console.log("idForCart", idForCart);
+
+    this.props.onAddToCart({
+      id: this.state.productDetails.id + idForCart,
+      gallery: this.state.productDetails.gallery,
+      attributes: this.state.productDetails.attributes,
+      prices: this.state.productDetails.prices,
+      selectedAttributes: this.state.selectedAttributes,
     });
   };
 
@@ -95,7 +108,7 @@ class ProductDetails extends Component {
     let price;
 
     if (this.state.productDetails.prices && this.props.currSymbol !== "") {
-      const amount = this.filterPrices(
+      const amount = filterPrices(
         this.state.productDetails.prices,
         this.props.setCurrSymbol
       );
@@ -147,7 +160,10 @@ class ProductDetails extends Component {
               className={classes.description}
               dangerouslySetInnerHTML={this.createMarkup()}
             />
-            <button className={classes.button}></button>
+            <button
+              onClick={this.addToCartHandler}
+              className={classes.button}
+            ></button>
           </div>
         </div>
       </>
@@ -161,4 +177,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(withRouter(ProductDetails));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddToCart: (item) => dispatch(cartActions.addToCart(item)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ProductDetails));

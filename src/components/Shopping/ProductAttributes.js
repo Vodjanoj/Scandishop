@@ -27,11 +27,18 @@ class ProductAttributes extends Component {
     return (
       <>
         <div>{this.props.name} </div>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            height: "100px",
+            alignItems: "center",
+          }}
+        >
           {this.props.attributes.items.map((attItem, index) => (
             <ProductAttributesItem
               key={index + attItem.id}
               displValue={attItem.displayValue}
+              name={this.props.name}
               isColor={this.props.name === "Color"}
               isSelected={this.props.selected === attItem.id}
               value={attItem.value}
@@ -47,25 +54,3 @@ class ProductAttributes extends Component {
 }
 
 export default ProductAttributes;
-
-{
-  /* {this.props.attributes.map((item, index) => (
-            <ProductAttributesItem
-              key={index + item.id}
-              displValue={item.displayValue}
-              value={item.value}
-              onClicked={this.props.onClickk.bind(null, {
-                id: item.id,
-                attrName: this.props.name,
-              })}
-              isColor={this.props.name === "Color"}
-              // isSelected={item.id === this.state.selectedOption}
-              isSelected={item.id === this.props.selected.option && this.props.selected.name === this.props.name}
-              onClick={this.selectItemHandler.bind(this, {
-                id: item.id,
-                productId: this.props.id,
-                attrName: this.props.name,
-              })}
-            />
-          ))} */
-}

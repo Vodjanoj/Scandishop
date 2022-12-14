@@ -9,7 +9,8 @@ const currencySlice = createSlice({
   initialState: defaultCurrencyState,
   reducers: {
     setCurrency(state, action) {
-      state.setCurrSymbol = action.payload[0].symbol;
+      
+      state.setCurrSymbol = action.payload;
     },
     currencySwitch(state, action) {
       state.setCurrSymbol = action.payload;

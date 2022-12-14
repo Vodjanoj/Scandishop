@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 import { getCategories } from "../../graphql/queries";
 import Dropdown from "./Dropdown";
+import CartGroup from "../Cart/CartGroup";
 
 class MainNavigation extends Component {
   state = {
@@ -41,7 +42,7 @@ class MainNavigation extends Component {
           <div className={classes.logo}>Logo</div>
           <div className={classes.toolbar}>
             <Dropdown />
-            <div>Cart</div>
+            <CartGroup/>
           </div>
         </div>
       </header>

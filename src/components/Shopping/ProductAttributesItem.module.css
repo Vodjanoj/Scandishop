@@ -1,29 +1,71 @@
-.button {
-  border: none;
-  padding: 15px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+.attribute-item {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  margin-right: 15px;
+  margin-left: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.attribute-item.not-colored {
+  min-width: 70px;
   font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
+  background-color: #ffffff;
 }
 
-.button.clicked {
-  border: 0.1px solid black;
-}
-/* .Green {
-  background-color: #44ff03;
-}
-
-.Cyan {
-  background-color: #03fff7;
+.attribute-item .checkmark {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-.Bule {
-  background-color: #44ff03;
+.attribute-item .checkmark::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  border: 1px solid #5ece7b;
 }
 
-.Green {
-  background-color: #44ff03;
-} */
+.attribute-item.not-colored .checkmark {
+  color: #000000;
+  opacity: 1;
+}
+
+.attribute-item input {
+  display: none;
+}
+
+.attribute-item input:checked + .checkmark {
+  opacity: 1;
+}
+
+.attribute-item.not-colored .checkmark::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  border: 1px solid #000000;
+}
+
+.attribute-item.not-colored input:checked + .checkmark {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.custom-radio-btn.not-colored input:checked + .checkmark {
+  opacity: 1;
+}

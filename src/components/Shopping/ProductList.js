@@ -2,16 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProductItem from "./ProductItem";
 import classes from "./ProductList.module.css";
+import { filterPrices } from '../Utils/filterPrices'
 
 class ProductList extends Component {
-  filterPrices(prices, currSymbol) {
-    const filteredPrice = prices.filter(
-      (price) => price.currency.symbol === currSymbol
-    );
-
-    return filteredPrice;
-  }
-
+   
   render() {
     return (
       <>
@@ -23,7 +17,7 @@ class ProductList extends Component {
               brand={item.brand}
               name={item.name}
               prices={item.prices}
-              currPrice={this.filterPrices(
+              currPrice={filterPrices(
                 item.prices,
                 this.props.setCurrSymbol
               )}

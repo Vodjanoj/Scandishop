@@ -8,15 +8,24 @@ class ProductAttributesItem extends Component {
 
     return (
       <>
-        <button
-          onClick={this.props.onClick}
-          className={`${classes.button} ${isSelected && classes.clicked}`}
+        <label
+          className={`${classes[`attribute-item`]} ${!isColor &&
+            classes[`not-colored`]}`}
           style={{
             backgroundColor: isColor && this.props.value,
           }}
         >
-          {!isColor && this.props.displValue}
-        </button>
+          <input
+            type="radio"
+            name={this.props.name}
+            value={this.props.value}
+            checked={isSelected}
+            onChange={this.props.onClick}
+          ></input>
+          <span className={classes.checkmark}>
+            {!isColor && this.props.value}
+          </span>
+        </label>
       </>
     );
   }
