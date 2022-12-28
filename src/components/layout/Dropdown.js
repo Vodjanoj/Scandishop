@@ -31,7 +31,7 @@ class Dropdown extends Component {
   };
 
   render() {
-    console.log("datainDropdown", this.state.allCurrencies);
+    
     return (
       <div onClick={this.toggleDropdownHandler} className={classes.dropdown}>
       {this.props.setCurrSymbol}

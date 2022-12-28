@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import ProductAttributes from "./ProductAttributes";
 import { connect } from "react-redux";
-import { filterPrices } from '../Utils/filterPrices';
+import { filterPrices } from "../Utils/filterPrices";
 import { getProductsById } from "../../graphql/queries";
+import { getProductsAttributesById } from "../../graphql/queries";
 import classes from "./ProductDetails.module.css";
 import { withRouter } from "react-router-dom";
 import { cartActions } from "../../store/cart-slice";
@@ -10,7 +11,7 @@ import Gallery from "./Gallery";
 
 class ProductDetails extends Component {
   state = {
-    productDetails: [],
+    productDetails: {},
     selectedImage: null,
     selectedAttributes: [],
   };
@@ -18,8 +19,6 @@ class ProductDetails extends Component {
   createMarkup = () => {
     return { __html: this.state.productDetails.description };
   };
-
-  
 
   onSelectAttrHandler = (attId, attItemId) => {
     const updatedSelcAttr = this.state.selectedAttributes.map((attribute) =>
@@ -52,10 +51,10 @@ class ProductDetails extends Component {
       ""
     );
 
-    console.log("idForCart", idForCart);
-
     this.props.onAddToCart({
       id: this.state.productDetails.id + idForCart,
+      brand: this.state.productDetails.brand,
+      name: this.state.productDetails.name,
       gallery: this.state.productDetails.gallery,
       attributes: this.state.productDetails.attributes,
       prices: this.state.productDetails.prices,
@@ -63,48 +62,37 @@ class ProductDetails extends Component {
     });
   };
 
-  // onSelecItem = (atrrib) => {
-  //   console.log("id", atrrib);
-  //   this.setState((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       isAttrSelected: !this.state.isAttrSelected,
-  //       option: atrrib
-  //     };
-  //   });
-  // };
-
   componentDidMount() {
     const productId = this.props.match.params.productId;
-    console.log("productId", productId);
-    const loadProductDetailsHandler = async () => {
-      const data = await getProductsById(productId);
 
-      const selectedAttributes = data.attributes.map((attribute) => ({
+    const loadProductDetailsHandler = async () => {
+      const product = await getProductsById(productId);
+
+      // A seperate query with fetchPolicy: "network-only" for getting attributes 
+      // of a product from a server, not from cache.
+      // If we get attributes from cache they are being mixed with attribites of other products,
+      // so we have an issue with correct displaying of  attributes associated to a specific product 
+      const attributes = await getProductsAttributesById(productId);
+
+      const selectedAttributes = attributes.map((attribute) => ({
         id: attribute.id,
         name: attribute.name,
         selectedAttrItemId: attribute.items[0].id,
       }));
 
-      console.log("myAttributes", data);
-      console.log("selectedAttributes", selectedAttributes);
-
       this.setState((prevState) => {
         return {
           ...prevState,
-          productDetails: data,
-          selectedImage: data.gallery[0],
+          productDetails: { ...product, attributes },
+          selectedImage: product.gallery[0],
           selectedAttributes: selectedAttributes,
         };
       });
     };
     loadProductDetailsHandler();
   }
-  render() {
-    if (this.state.productDetails) {
-      console.log("this.state", this.state);
-    }
 
+  render() {
     let price;
 
     if (this.state.productDetails.prices && this.props.currSymbol !== "") {
@@ -115,44 +103,38 @@ class ProductDetails extends Component {
       price = amount[0].amount;
     }
 
+    console.log("this.setstate", this.state);
+
     return (
       <>
-        <div className={classes.details}>
+        <div className={classes.card}>
           <Gallery
             onSelectImage={this.selectImageHandler}
             selectedImage={this.state.selectedImage}
             images={this.state.productDetails.gallery}
           />
 
-          <div className={classes.order}>
-            <div>{this.state.productDetails.brand}</div>
-            <div>{this.state.productDetails.name}</div>
+          <div className={classes.details}>
+            <h1 className={classes.brand}>{this.state.productDetails.brand}</h1>
+            <h2 className={classes.name}>{this.state.productDetails.name}</h2>
 
             {this.state.productDetails.attributes && (
               <div className={classes.attributes}>
                 {this.state.productDetails.attributes.map(
-                  (attribute, index) => {
-                    let selectedAttribute = this.state.selectedAttributes.find(
-                      (selectAtr) => attribute.id === selectAtr.id
-                    );
-                    return (
-                      <ProductAttributes
-                        key={index + attribute.id}
-                        name={attribute.name}
-                        attributes={attribute}
-                        selected={
-                          selectedAttribute
-                            ? selectedAttribute.selectedAttrItemId
-                            : ""
-                        }
-                        onSelectAttr={this.onSelectAttrHandler}
-                      />
-                    );
-                  }
+                  (attribute, index) => (
+                    <ProductAttributes
+                      key={index + attribute.id}
+                      name={attribute.name}
+                      attributes={attribute}
+                      selectedAttributes={this.state.selectedAttributes}
+                      onSelectAttr={this.onSelectAttrHandler}
+                    />
+                  )
                 )}
               </div>
             )}
-            <div>
+            <div className={classes.price}>Price:</div>
+            <div className={classes["current-price"]}>
               {this.props.setCurrSymbol}
               {price}
             </div>

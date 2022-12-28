@@ -2,7 +2,7 @@ import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 
 const GRAPH_URL = "http://localhost:4000/";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: GRAPH_URL,
   cache: new InMemoryCache(),
 });
@@ -47,16 +47,6 @@ export async function getProductsById(id) {
         gallery
         description
         category
-        attributes {
-          id
-          name
-          type
-          items {
-            displayValue
-            value
-            id
-          }
-        }
         prices {
           currency {
             label
@@ -72,8 +62,36 @@ export async function getProductsById(id) {
   const {
     data: { product },
   } = await client.query({ query, variables });
-
+  console.log("product", product);
   return product;
+}
+
+export async function getProductsAttributesById(id) {
+  const query = gql`
+    query ProductAttributesQuery($id: String!) {
+      product(id: $id) {
+        id
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
+      }
+    }
+  `;
+  const variables = { id };
+  const {
+    data: {
+      product: { attributes },
+    },
+  } = await client.query({ query, variables, fetchPolicy: "network-only" });
+  console.log("attributes", attributes);
+  return attributes;
 }
 
 export async function getProductsByCategory(categoryType) {
@@ -86,6 +104,7 @@ export async function getProductsByCategory(categoryType) {
           name
           brand
           gallery
+          inStock
           prices {
             currency {
               label
@@ -104,5 +123,6 @@ export async function getProductsByCategory(categoryType) {
     },
   } = await client.query({ query, variables });
 
+  console.log("products", products);
   return products;
 }

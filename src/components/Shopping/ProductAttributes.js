@@ -1,50 +1,39 @@
 import React, { Component } from "react";
 import ProductAttributesItem from "./ProductAttributesItem";
+import classes from "./ProductAttributes.module.css";
 
 class ProductAttributes extends Component {
-  state = {
-    selectedOption: [],
-  };
-  selectItemHandler = (atrrib) => {
-    let isName = this.props.attributes.find((item) => item.id === atrrib.id);
-    console.log("isName", isName.id);
-    if (this.props.name === atrrib.attrName && isName.id === atrrib.id) {
-      this.setState((prevState) => {
-        return {
-          ...prevState,
-          selectedOption: atrrib.id,
-        };
-      });
-    }
-
-    this.props.setOption(atrrib);
-    console.log("isSeleceted", atrrib.id, atrrib.productId);
+  
+  findSelected = (attrId, attrName) => {
+    const filteredAttrId = this.props.selectedAttributes.filter(
+      (selectedAtr) =>
+        selectedAtr.selectedAttrItemId === attrId &&
+        selectedAtr.name === attrName
+    );
+    return filteredAttrId;
   };
 
   render() {
-    console.log("ProductAttributes props", this.props.selected);
-    console.log("props.attributes.items", this.props.attributes.items);
     return (
       <>
-        <div>{this.props.name} </div>
-        <div
-          style={{
-            display: "flex",
-            height: "100px",
-            alignItems: "center",
-          }}
-        >
+        <div className={classes.name}>{this.props.name}:</div>
+        <div className={classes["attribute-items"]}>
           {this.props.attributes.items.map((attItem, index) => (
             <ProductAttributesItem
+              //  generate id for every item
+              id={this.props.id}
               key={index + attItem.id}
+              index={index}
               displValue={attItem.displayValue}
               name={this.props.name}
+              selected={this.findSelected(attItem.id, this.props.name)}
               isColor={this.props.name === "Color"}
-              isSelected={this.props.selected === attItem.id}
+              // isSelected={this.props.selected === attItem.id}
               value={attItem.value}
-              onClick={() =>
+              changeAtr={() =>
                 this.props.onSelectAttr(this.props.name, attItem.id)
               }
+              type={this.props.type}
             />
           ))}
         </div>

@@ -56,23 +56,3 @@ class App extends Component {
 }
 
 export default App;
-
-// function App() {
-//   return (
-//     <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
-//       <Layout>
-//         <Routes>
-//           <Route path="/" element={<Category/>} />
-//           <Route path="/category/:category" element={<Category />} />
-//         </Routes>
-//       </Layout>
-//     </div>
-//   );
-// }
-
-// <Layout>
-//  <Routes>
-//    <Route path="/" element={<Navigate to ='/category/all'/>} />
-//    <Route path="/category/:category" element={<Category />} />
-//  </Routes>
-// </Layout>

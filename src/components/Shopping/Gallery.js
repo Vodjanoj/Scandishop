@@ -17,7 +17,7 @@ class Gallery extends Component {
               </div>
             ))}
         </div>
-        <div className={classes["selected-image"]}>
+        <div className={classes["main-image"]}>
           {this.props.images && <img src={this.props.selectedImage}></img>}
         </div>
       </>

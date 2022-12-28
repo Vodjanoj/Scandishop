@@ -1,0 +1,10 @@
+.name {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.attribute-items {
+    display: flex;
+    margin-bottom: 15px;
+}

@@ -12,7 +12,7 @@ class Category extends Component {
   getData = (categoryName) => {
     const loadProductsByCatHandler = async () => {
       const data = await getProductsByCategory(categoryName);
-
+     
       const loadedProductsByCat = [];
 
       for (const key in data) {
@@ -20,6 +20,7 @@ class Category extends Component {
           id: data[key].id,
           brand: data[key].brand,
           name: data[key].name,
+          inStock: data[key].inStock,
           image: data[key].gallery[0],
           prices: data[key].prices,
         });
@@ -43,6 +44,8 @@ class Category extends Component {
 
   componentDidUpdate(prevProps) {
     const categoryName = this.props.match.params.categoryName;
+    console.log('categoryName',this.props.match.params.categoryName )
+    console.log('prevProps.match.params.productId',prevProps)
 
     if (categoryName !== prevProps.match.params.categoryName) {
       console.log("did update");
@@ -50,6 +53,7 @@ class Category extends Component {
     }
   }
   render() {
+   
     // console.log('categoryAllProps:', this.props)
     // console.log('categoryCerrencyfromStore:', this.props.setCurrSymbol)
     return (

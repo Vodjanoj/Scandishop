@@ -1,11 +1,40 @@
-.details {
+.card {
   display: flex;
 }
 
 
-/* .order {
-  background-color: bisque;
-} */
+.details {
+  width: 40%;
+  margin-left: 100px;
+}
+
+.brand {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.name {
+  font-size: 30px;
+  line-height: 1.4;
+  margin-bottom: 30px;
+}
+
+.attributes {
+  margin-bottom: 40px;
+}
+
+.price {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.current-price {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
 
 .description h3 {
   font-size: 30px;

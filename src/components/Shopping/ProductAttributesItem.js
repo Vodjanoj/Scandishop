@@ -4,23 +4,32 @@ import classes from "./ProductAttributesItem.module.css";
 class ProductAttributesItem extends Component {
   render() {
     const isColor = this.props.isColor;
-    const isSelected = this.props.isSelected;
 
     return (
       <>
         <label
           className={`${classes[`attribute-item`]} ${!isColor &&
-            classes[`not-colored`]}`}
+            classes[`not-colored`]} ${this.props.type === "miniCart" &&
+            classes[`mini-cart`]}`}
           style={{
-            backgroundColor: isColor && this.props.value,
+            backgroundColor: isColor && this.props.displValue,
           }}
         >
           <input
             type="radio"
-            name={this.props.name}
+            name={
+              this.props.type === "miniCart"
+                ? this.props.id + "_" + this.props.name
+                : this.props.name
+            }
             value={this.props.value}
-            checked={isSelected}
-            onChange={this.props.onClick}
+            checked={
+              this.props.selected.length > 0 &&
+              this.props.selected[0].selectedAttrItemId ===
+                this.props.displValue
+            }
+            disabled={this.props.type === "miniCart" && true}
+            onChange={this.props.changeAtr}
           ></input>
           <span className={classes.checkmark}>
             {!isColor && this.props.value}
@@ -32,3 +41,8 @@ class ProductAttributesItem extends Component {
 }
 
 export default ProductAttributesItem;
+
+// defaultChecked= { this.props.index === 0 ||
+//   (this.props.selected.selectedAttrId === this.props.value &&
+//   this.props.selected.selectedAttrName === this.props.name)
+// }

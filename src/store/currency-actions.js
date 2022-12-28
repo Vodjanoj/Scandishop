@@ -5,7 +5,7 @@ export const initCurrency = () => {
   return (dispatch) => {
     const loadAllCurrencies = async () => {
       const data = await getCurrencies();
-      console.log('data', data)
+   
       // we should use some distracture over here
       dispatch(currencyActions.setCurrency(data[0].symbol));
     };

@@ -21,7 +21,7 @@ class CartGroup extends Component {
             position: "relative",
           }}
         >
-          <div onClick={this.toggleCartHandler}>Logo</div>
+          <div onClick={this.toggleCartHandler}>Cart</div>
           {this.state.cartIsShown && <Cart />}
         </div>
       </div>
