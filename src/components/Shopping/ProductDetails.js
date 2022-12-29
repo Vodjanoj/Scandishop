@@ -8,6 +8,7 @@ import classes from "./ProductDetails.module.css";
 import { withRouter } from "react-router-dom";
 import { cartActions } from "../../store/cart-slice";
 import Gallery from "./Gallery";
+import Button from "../UI/Button";
 
 class ProductDetails extends Component {
   state = {
@@ -68,10 +69,11 @@ class ProductDetails extends Component {
     const loadProductDetailsHandler = async () => {
       const product = await getProductsById(productId);
 
-      // A seperate query with fetchPolicy: "network-only" for getting attributes 
-      // of a product from a server, not from cache.
+      // A seperate query with fetchPolicy: "network-only" for getting attributes
+      // of a product from a server, not from cache, by not getting the whole data of a product
+      // from a server with each rendering of a component we save the network traffic.
       // If we get attributes from cache they are being mixed with attribites of other products,
-      // so we have an issue with correct displaying of  attributes associated to a specific product 
+      // so we have an issue with correct displaying of  attributes associated to a specific product
       const attributes = await getProductsAttributesById(productId);
 
       const selectedAttributes = attributes.map((attribute) => ({
@@ -103,7 +105,7 @@ class ProductDetails extends Component {
       price = amount[0].amount;
     }
 
-    console.log("this.setstate", this.state);
+    console.log("this.state.productDetails.inStock", this.state.productDetails);
 
     return (
       <>
@@ -138,14 +140,11 @@ class ProductDetails extends Component {
               {this.props.setCurrSymbol}
               {price}
             </div>
+            <Button disabled={!this.state.productDetails.inStock} clicked={this.addToCartHandler}>{this.state.productDetails.inStock ? 'Add to Cart' : 'Out of Stock'}</Button>
             <div
               className={classes.description}
               dangerouslySetInnerHTML={this.createMarkup()}
             />
-            <button
-              onClick={this.addToCartHandler}
-              className={classes.button}
-            ></button>
           </div>
         </div>
       </>

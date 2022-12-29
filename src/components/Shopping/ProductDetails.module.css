@@ -2,7 +2,6 @@
   display: flex;
 }
 
-
 .details {
   width: 40%;
   margin-left: 100px;
@@ -33,21 +32,31 @@
 .current-price {
   font-size: 24px;
   font-weight: 700;
-  margin-bottom: 3px;
+  margin-bottom: 25px;
 }
 
-.description h3 {
-  font-size: 30px;
-}
-
-.description h1 {
-  font-size: 40px;
-}
-
-.description p {
+.description {
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
 }
 
-.button {
-  padding: 10px 20px
+.description h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.description h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.description ul {
+  padding: 0 0 0 25px;
+  list-style: initial;
+}
+
+.description p {
+  margin: 0 0 16px 0;
 }

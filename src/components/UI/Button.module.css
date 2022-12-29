@@ -1,0 +1,31 @@
+.btn {
+  padding: 15px 94px;
+  margin-bottom: 35px;
+  border: none;
+  font: inherit;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #5ece7b;
+  transition: opacity 0.5s ease;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.btn:disabled {
+  background-color: #5ece7b;
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  opacity: 0.8;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  
+}

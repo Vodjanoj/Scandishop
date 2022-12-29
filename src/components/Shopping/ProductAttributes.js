@@ -20,7 +20,6 @@ class ProductAttributes extends Component {
         <div className={classes["attribute-items"]}>
           {this.props.attributes.items.map((attItem, index) => (
             <ProductAttributesItem
-              //  generate id for every item
               id={this.props.id}
               key={index + attItem.id}
               index={index}
@@ -28,7 +27,6 @@ class ProductAttributes extends Component {
               name={this.props.name}
               selected={this.findSelected(attItem.id, this.props.name)}
               isColor={this.props.name === "Color"}
-              // isSelected={this.props.selected === attItem.id}
               value={attItem.value}
               changeAtr={() =>
                 this.props.onSelectAttr(this.props.name, attItem.id)
