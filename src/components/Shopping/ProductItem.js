@@ -14,7 +14,7 @@ class ProductItem extends Component {
 
     return (
       <>
-        <div className={classes.product}>
+        <article className={classes.product}>
           <Link to={`/categories/${categoryName}/${this.props.id}`}>
             <div className={classes.inner}>
               {!this.props.inStock && (
@@ -42,7 +42,7 @@ class ProductItem extends Component {
               </div>
             </div>
           </Link>
-        </div>
+        </article>
       </>
     );
   }

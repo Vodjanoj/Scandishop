@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Layout from "./components/Layout/Layout";
 import Category from "./components/Shopping/Category";
-import ProductDetails from "./components/Shopping/ProductDetails";
+import ProductDetails from "./components/Shopping/ProductDetail";
 import { getCategories } from "./graphql/queries";
 import { Route, Switch, Redirect } from "react-router-dom";
 

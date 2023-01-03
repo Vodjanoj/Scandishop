@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import { filterPrices } from "../Utils/filterPrices";
 import { getProductsById } from "../../graphql/queries";
 import { getProductsAttributesById } from "../../graphql/queries";
-import classes from "./ProductDetails.module.css";
+import classes from "./ProductDetail.module.css";
 import { withRouter } from "react-router-dom";
 import { cartActions } from "../../store/cart-slice";
 import Gallery from "./Gallery";
 import Button from "../UI/Button";
 
-class ProductDetails extends Component {
+class ProductDetail extends Component {
   state = {
     productDetails: {},
     selectedImage: null,
@@ -140,7 +140,14 @@ class ProductDetails extends Component {
               {this.props.setCurrSymbol}
               {price}
             </div>
-            <Button disabled={!this.state.productDetails.inStock} clicked={this.addToCartHandler}>{this.state.productDetails.inStock ? 'Add to Cart' : 'Out of Stock'}</Button>
+            <Button
+              disabled={!this.state.productDetails.inStock}
+              clicked={this.addToCartHandler}
+            >
+              {this.state.productDetails.inStock
+                ? "Add to Cart"
+                : "Out of Stock"}
+            </Button>
             <div
               className={classes.description}
               dangerouslySetInnerHTML={this.createMarkup()}
@@ -167,4 +174,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ProductDetails));
+)(withRouter(ProductDetail));

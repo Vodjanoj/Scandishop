@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 import { getCategories } from "../../graphql/queries";
+import mainLogo from "../../assets/a-logo.png";
 import Dropdown from "./Dropdown";
 import CartGroup from "../Cart/CartGroup";
 
@@ -26,23 +27,23 @@ class MainNavigation extends Component {
       <header className={classes.header}>
         <div className={classes.inner}>
           <nav className={classes.nav}>
-            <ul>
-              {this.state.allCategories.map((cat, index) => (
-                <li key={index + cat.name}>
-                  <NavLink
-                    activeClassName={classes.active}
-                    to={"/categories/" + cat.name}
-                  >
-                    {cat.name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
+            {this.state.allCategories.map((cat, index) => (
+              <NavLink
+                key={index + cat.name}
+                activeClassName={classes.active}
+                to={"/categories/" + cat.name}
+                title={cat.name}
+              >
+                {cat.name}
+              </NavLink>
+            ))}
           </nav>
-          <div className={classes.logo}>Logo</div>
+          <div className={classes.logo}>
+            <img src={mainLogo} alt="Shopping!"></img>
+          </div>
           <div className={classes.toolbar}>
             <Dropdown />
-            <CartGroup/>
+            <CartGroup />
           </div>
         </div>
       </header>
