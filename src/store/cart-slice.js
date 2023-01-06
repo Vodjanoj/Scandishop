@@ -23,6 +23,7 @@ const cartSlice = createSlice({
           name: newItem.name,
           brand: newItem.brand,
           attributes: newItem.attributes,
+          prices: newItem.prices,
           quantity: 1,
         });
       } else {

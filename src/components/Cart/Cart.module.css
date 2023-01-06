@@ -7,3 +7,7 @@
   right:0;
   z-index: 1002;
 }
+
+.inner {
+  padding: 32px 16px;
+}

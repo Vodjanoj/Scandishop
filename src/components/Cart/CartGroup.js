@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import cartIcon from "../../assets/cart-icon.png";
 import Cart from "./Cart";
+import classes from "./CartGroup.module.css";
 
 class CartGroup extends Component {
   state = {
@@ -13,17 +15,14 @@ class CartGroup extends Component {
   };
 
   render() {
+    console.log('this.state.cartIsShown', this.state.cartIsShown)
     return (
-      <div>
-        {/* position realative should be set */}
-        <div
-          style={{
-            position: "relative",
-          }}
-        >
-          <div onClick={this.toggleCartHandler}>Cart</div>
-          {this.state.cartIsShown && <Cart />}
-        </div>
+      <div className={classes["cart-image"]} onClick={this.toggleCartHandler}>
+        <img src={cartIcon}></img>
+        <span className={classes["products-count"]}>0</span>
+        {this.state.cartIsShown && (
+          <Cart setCurrSymbol={this.props.setCurrSymbol} />
+        )}
       </div>
     );
   }

@@ -21,7 +21,6 @@ class Dropdown extends Component {
     loadAllCurrenciesHandler();
 
     this.props.onInitCurrency(); // Redux Thunk
- 
   }
 
   toggleDropdownHandler = () => {
@@ -31,10 +30,13 @@ class Dropdown extends Component {
   };
 
   render() {
-    
     return (
-      <div onClick={this.toggleDropdownHandler} className={classes.dropdown}>
-      {this.props.setCurrSymbol}
+      <div
+        onClick={this.toggleDropdownHandler}
+        className={`${classes.currency} ${this.state
+          .toggleDropdown && classes.active}`}
+      >
+        {this.props.setCurrSymbol}
 
         {this.state.toggleDropdown && (
           <ul>

@@ -5,8 +5,6 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
 class ProductItem extends Component {
-
-  
   render() {
     const categoryName = this.props.match.params.categoryName;
     const { symbol } = this.props.currPrice[0].currency;
@@ -32,7 +30,10 @@ class ProductItem extends Component {
                 {this.props.brand} {this.props.name}
               </div>
               {this.props.inStock && (
-                <div className={classes[`circle-cart-icon`]} onClick={this.props.addToCart}>
+                <div
+                  className={classes[`circle-cart-icon`]}
+                  onClick={this.props.addToCart}
+                >
                   <img src={circleCartIcon} alt="A quick add to cart!"></img>
                 </div>
               )}

@@ -4,9 +4,11 @@ import classes from "./DropdownItem.module.css";
 class DropdownItem extends Component {
   render() {
     return (
-      <div className={classes.item} onClick={this.props.onClick}>
-        {this.props.symbol} {this.props.label} 
-      </div>
+      <li>
+        <div className={classes.item} onClick={this.props.onClick}>
+          {this.props.symbol} {this.props.label}
+        </div>
+      </li>
     );
   }
 }

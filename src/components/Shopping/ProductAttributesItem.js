@@ -41,8 +41,3 @@ class ProductAttributesItem extends Component {
 }
 
 export default ProductAttributesItem;
-
-// defaultChecked= { this.props.index === 0 ||
-//   (this.props.selected.selectedAttrId === this.props.value &&
-//   this.props.selected.selectedAttrName === this.props.name)
-// }

@@ -1,0 +1,13 @@
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary {
+    width: 60%;
+}
+
+.image {
+    display: block;
+    width: 40%;
+}

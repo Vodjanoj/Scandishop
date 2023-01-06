@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import classes from "./MainNavigation.module.css";
 import { getCategories } from "../../graphql/queries";
 import mainLogo from "../../assets/a-logo.png";
@@ -23,6 +24,7 @@ class MainNavigation extends Component {
   }
 
   render() {
+    console.log("setCurrSymbol main nav", this.props.setCurrSymbol);
     return (
       <header className={classes.header}>
         <div className={classes.inner}>
@@ -43,7 +45,7 @@ class MainNavigation extends Component {
           </div>
           <div className={classes.toolbar}>
             <Dropdown />
-            <CartGroup />
+            <CartGroup setCurrSymbol={this.props.setCurrSymbol} />
           </div>
         </div>
       </header>
@@ -51,8 +53,10 @@ class MainNavigation extends Component {
   }
 }
 
-export default MainNavigation;
+const mapStateToProps = (state) => {
+  return {
+    setCurrSymbol: state.currency.setCurrSymbol,
+  };
+};
 
-// className={(navData) =>
-//   navData.isActive ? classes.active : ""
-// }
+export default connect(mapStateToProps, null)(MainNavigation);

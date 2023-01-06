@@ -73,7 +73,7 @@ class ProductDetail extends Component {
       // of a product from a server, not from cache, by not getting the whole data of a product
       // from a server with each rendering of a component we save the network traffic.
       // If we get attributes from cache they are being mixed with attribites of other products,
-      // so we have an issue with correct displaying of  attributes associated to a specific product
+      // so we have an issue with correct displaying of attributes associated to a specific product
       const attributes = await getProductsAttributesById(productId);
 
       const selectedAttributes = attributes.map((attribute) => ({

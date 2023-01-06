@@ -12,3 +12,5 @@ class Backdrop extends Component {
 }
 
 export default Backdrop;
+
+{/* <div className={classes.backdrop} onClick={this.props.clicked}></div>  */}
