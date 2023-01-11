@@ -1,34 +1,48 @@
+import { isAsyncThunkAction } from "@reduxjs/toolkit";
 import React, { Component } from "react";
 import ProductAttributes from "../Shopping/ProductAttributes";
 import classes from "./CartItem.module.css";
 
 class CartItem extends Component {
   render() {
-    console.log("CartItem this.props", this.props);
+    const { symbol } = this.props.currPrice[0].currency;
+    const { amount } = this.props.currPrice[0];
     return (
       <>
         <li className={classes["cart-item"]}>
-          <div className={classes.summary}>
-            <div>{this.props.brand}</div>
-            <div>{this.props.name}</div>
-            <div>{this.props.currPrice[0].amount}</div>
-            <div>{this.props.currPrice[0].currency.symbol}</div>
-            <div>
-              {this.props.attributes.map((attribute, index) => (
-                <ProductAttributes
-                  id={this.props.id}
-                  key={index + attribute.id}
-                  name={attribute.name}
-                  attributes={attribute}
-                  selectedAttributes={this.props.selectedAttributes}
-                  onSelectAttr={this.onSelectAttrHandler}
-                  type={"miniCart"}
-                />
-              ))}
+          <div className={classes['item-summary']}>
+            <div className={classes["order-details"]}>
+              <div className={classes.brand}>{this.props.brand}</div>
+              <div className={classes.name}>{this.props.name}</div>
+              <span className={classes.price}>
+                {symbol}
+                {amount} 
+              </span>
+
+              <div>
+                {this.props.attributes.map((attribute, index) => (
+                  <ProductAttributes
+                    id={this.props.id}
+                    key={index + attribute.id}
+                    name={attribute.name}
+                    attributes={attribute}
+                    selectedAttributes={this.props.selectedAttributes}
+                    onSelectAttr={this.onSelectAttrHandler}
+                    type={"miniCart"}
+                  />
+                ))}
+              </div>
             </div>
+            <div className={classes['order-actions']}>
+              <div className={classes['add-item']}></div>
+              <div className={classes.amount}>2</div>
+              <div className={classes['delete-item']}></div>
+            </div>
+
           </div>
-          <div className={classes.image}>
-            <img src="https://via.placeholder.com/120x190"></img>
+          <div className={classes['item-image']}>
+            <div className={classes.overlay}></div>
+            <img className={classes.image} src={this.props.picture}></img>
           </div>
         </li>
       </>

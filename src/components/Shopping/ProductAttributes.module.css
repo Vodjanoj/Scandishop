@@ -4,7 +4,19 @@
   margin-bottom: 3px;
 }
 
+.name.cart-overlay {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 5px;
+  text-transform: none;
+}
+
 .attribute-items {
-    display: flex;
-    margin-bottom: 15px;
+  display: flex;
+  font-family: "Source Sans Pro", sans-serif;
+  margin-bottom: 15px;
+}
+
+.attribute-items.cart-overlay {
+  margin-bottom: 5px;
 }

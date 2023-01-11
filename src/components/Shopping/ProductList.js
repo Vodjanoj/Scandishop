@@ -13,7 +13,7 @@ class ProductList extends Component {
     const loadProductDetailsHandler = async () => {
       const attributes = await getProductsAttributesById(prodItem.id);
 
-      const selectedAttributes =  attributes.map((attribute) => ({
+      const selectedAttributes = attributes.map((attribute) => ({
         id: attribute.id,
         name: attribute.name,
         selectedAttrItemId: attribute.items[0].id,

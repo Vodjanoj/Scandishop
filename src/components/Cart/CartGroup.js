@@ -17,8 +17,8 @@ class CartGroup extends Component {
   render() {
     console.log('this.state.cartIsShown', this.state.cartIsShown)
     return (
-      <div className={classes["cart-image"]} onClick={this.toggleCartHandler}>
-        <img src={cartIcon}></img>
+      <div className={classes.icon} onClick={this.toggleCartHandler}>
+        <img className={classes["cart-icon"]} src={cartIcon}></img>
         <span className={classes["products-count"]}>0</span>
         {this.state.cartIsShown && (
           <Cart setCurrSymbol={this.props.setCurrSymbol} />

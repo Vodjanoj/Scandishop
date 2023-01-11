@@ -1,8 +1,8 @@
-.cart-image {
+.icon {
   position: relative;
 }
 
-.cart-image img {
+.icon .cart-icon {
   display: block;
   cursor: pointer;
   padding-bottom: 3px;

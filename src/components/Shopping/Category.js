@@ -23,6 +23,7 @@ class Category extends Component {
           inStock: data[key].inStock,
           image: data[key].gallery[0],
           prices: data[key].prices,
+          gallery: data[key].gallery
         });
       }
 

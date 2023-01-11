@@ -10,9 +10,11 @@ class ProductAttributesItem extends Component {
         <label
           className={`${classes[`attribute-item`]} ${!isColor &&
             classes[`not-colored`]} ${this.props.type === "miniCart" &&
-            classes[`mini-cart`]}`}
+            classes[`cart-overlay`]}`}
           style={{
             backgroundColor: isColor && this.props.displValue,
+            width: !isColor && this.props.type !== "miniCart" && "63px",
+            height: !isColor && this.props.type !== "miniCart" && "45px",
           }}
         >
           <input
@@ -31,7 +33,13 @@ class ProductAttributesItem extends Component {
             disabled={this.props.type === "miniCart" && true}
             onChange={this.props.changeAtr}
           ></input>
-          <span className={classes.checkmark}>
+          <span
+            className={classes.checkmark}
+            style={{
+            width: !isColor && this.props.type !== "miniCart" && "63px",
+            height: !isColor && this.props.type !== "miniCart" && "45px",
+          }}
+          >
             {!isColor && this.props.value}
           </span>
         </label>

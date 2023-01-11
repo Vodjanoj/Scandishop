@@ -3,7 +3,6 @@ import ProductAttributesItem from "./ProductAttributesItem";
 import classes from "./ProductAttributes.module.css";
 
 class ProductAttributes extends Component {
-  
   findSelected = (attrId, attrName) => {
     const filteredAttrId = this.props.selectedAttributes.filter(
       (selectedAtr) =>
@@ -14,10 +13,17 @@ class ProductAttributes extends Component {
   };
 
   render() {
+    console.log('this.props.type', this.props.type)
     return (
       <>
-        <div className={classes.name}>{this.props.name}:</div>
-        <div className={classes["attribute-items"]}>
+        <div
+          className={`${classes.name} ${this.props.type === "miniCart" ?
+            classes[`cart-overlay`] : ''}`}
+        >
+          {this.props.name}:
+        </div>
+        <div className={`${classes['attribute-items']} ${this.props.type === "miniCart" ?
+            classes[`cart-overlay`] : ''}`}>
           {this.props.attributes.items.map((attItem, index) => (
             <ProductAttributesItem
               id={this.props.id}

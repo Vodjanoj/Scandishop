@@ -11,3 +11,19 @@
 .inner {
   padding: 32px 16px;
 }
+
+.title {
+  margin-bottom: 20px;
+}
+
+.order-summry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}

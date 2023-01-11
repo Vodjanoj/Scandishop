@@ -1,13 +1,89 @@
 .cart-item {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
 }
 
-.summary {
-    width: 60%;
+.item-summary {
+  display: flex;
+  width: 56%;
+  justify-content: space-around;
+  font-size: 16px;
 }
 
-.image {
-    display: block;
-    width: 40%;
+.brand {
+  font-weight: 300;
+  margin-bottom: 4px;
+}
+
+.name {
+  font-weight: 300;
+  margin-bottom: 7px;
+}
+
+.price {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.order-details {
+  width: 82%;
+}
+
+.order-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 15%;
+   
+}
+
+.add-item,
+.delete-item {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #000000;
+  cursor: pointer;
+}
+
+.add-item::before,
+.add-item::after,
+.delete-item::before {
+  position: absolute;
+  content: "";
+  width: 8px;
+  height: 1px;
+  background-color: #000000;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.add-item::after {
+  width: 1px;
+  height: 8px;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(197, 201, 201, 0.1);
+  z-index: 33;
+}
+
+.item-image {
+  position: relative;
+  width: 41%;
+}
+
+.item-image img {
+  display: block;
+  width: 100%;
+  height: auto;
 }

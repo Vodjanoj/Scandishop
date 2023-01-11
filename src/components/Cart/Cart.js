@@ -7,13 +7,12 @@ import { filterPrices } from "../Utils/filterPrices";
 
 class Cart extends Component {
   render() {
-    console.log("this.props.products Cart", this.props.products);
-
+    console.log("products", this.props.products);
     return (
       <>
         <div className={classes.cart} onClick={(e) => e.stopPropagation()}>
           <div className={classes.inner}>
-            <h2>My Bag, 3 items</h2>
+            <h2 className={classes.title}>My Bag, 3 items</h2>
             <ul className={classes["cart-items"]}>
               {this.props.products.map((orderItem, index) => (
                 <CartItem
@@ -22,6 +21,7 @@ class Cart extends Component {
                   attributes={orderItem.attributes}
                   name={orderItem.name}
                   brand={orderItem.brand}
+                  picture={orderItem.gallery[0]}
                   currPrice={filterPrices(
                     orderItem.prices,
                     this.props.setCurrSymbol
@@ -30,6 +30,10 @@ class Cart extends Component {
                 />
               ))}
             </ul>
+            <div className={classes["order-summry"]}>
+              <span className={classes.total}>Total</span>
+              <span className={classes.price}>{this.props.setCurrSymbol}100</span>
+            </div>
           </div>
         </div>
         <Backdrop />
