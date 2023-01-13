@@ -2,7 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 const defaultCartState = {
   items: [],
-  totalAmount: 0,
+  totalQuantity: 0,
   totalPrice: 0,
 };
 
@@ -13,25 +13,51 @@ const cartSlice = createSlice({
     addToCart(state, action) {
       const newItem = action.payload;
       console.log("payload", newItem);
-      state.totalAmount++;
-      const existingItem = state.items.find((item) => item.id === newItem.id);
+      state.totalQuantity++;
 
-      if (!existingItem) {
-        state.items.push({
-          id: newItem.id,
-          selectedAttributes: newItem.selectedAttributes,
-          name: newItem.name,
-          brand: newItem.brand,
-          attributes: newItem.attributes,
-          prices: newItem.prices,
-          gallery: newItem.gallery,
-          quantity: 1,
-        });
+      const existingCartItemIndex = state.items.findIndex(
+        (item) => item.id === newItem.id
+      );
+      const existingCartItem = state.items[existingCartItemIndex];
+
+      if (!existingCartItem) {
+        state.items = state.items.concat(newItem);
       } else {
-        console.log("existingItem", current(existingItem));
-        existingItem.quantity++;
+        const updatedItem = {
+          ...existingCartItem,
+          quantity: existingCartItem.quantity + 1,
+        };
+
+        const updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updatedItem;
+        state.items = [...updatedItems];
       }
-      console.log("current-state,", current(state));
+    },
+
+    removeFromCart(state, action) {
+      const itemId = action.payload;
+      state.totalQuantity--;
+      const existingCartItemIndex = state.items.findIndex(
+        (item) => item.id === itemId
+      );
+
+      const existingCartItem = state.items[existingCartItemIndex];
+
+      let updatedItems;
+
+      if (existingCartItem.quantity === 1) {
+        updatedItems = state.items.filter((item) => item.id !== itemId);
+        state.items = [...updatedItems];
+      } else {
+        const updatedItem = {
+          ...existingCartItem,
+          quantity: existingCartItem.quantity - 1,
+        };
+
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updatedItem;
+        state.items = [...updatedItems];
+      }
     },
   },
 });

@@ -19,9 +19,9 @@ class CartGroup extends Component {
     return (
       <div className={classes.icon} onClick={this.toggleCartHandler}>
         <img className={classes["cart-icon"]} src={cartIcon}></img>
-        <span className={classes["products-count"]}>0</span>
+        {this.props.totalQuantity > 0 && <span className={classes["products-count"]}>{this.props.totalQuantity}</span>}
         {this.state.cartIsShown && (
-          <Cart setCurrSymbol={this.props.setCurrSymbol} />
+          <Cart totalPrice={this.props.totalPrice} totalQuantity = {this.props.totalQuantity} setCurrSymbol={this.props.setCurrSymbol} />
         )}
       </div>
     );

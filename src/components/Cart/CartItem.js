@@ -34,9 +34,9 @@ class CartItem extends Component {
               </div>
             </div>
             <div className={classes['order-actions']}>
-              <div className={classes['add-item']}></div>
-              <div className={classes.amount}>2</div>
-              <div className={classes['delete-item']}></div>
+              <div className={classes['add-item']} onClick={this.props.onAdd}></div>
+              <div className={classes.amount}>{this.props.quantity}</div>
+              <div className={classes['delete-item']} onClick={this.props.onRemove}></div>
             </div>
 
           </div>

@@ -33,6 +33,7 @@ class ProductList extends Component {
         attributes: attributes,
         prices: prodItem.prices,
         selectedAttributes: selectedAttributes,
+        quantity: 1,
       });
     };
     loadProductDetailsHandler();

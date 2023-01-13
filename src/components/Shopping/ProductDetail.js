@@ -60,6 +60,7 @@ class ProductDetail extends Component {
       attributes: this.state.productDetails.attributes,
       prices: this.state.productDetails.prices,
       selectedAttributes: this.state.selectedAttributes,
+      quantity: 1,
     });
   };
 
