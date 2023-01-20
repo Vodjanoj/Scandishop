@@ -36,6 +36,8 @@ class ProductDetail extends Component {
     });
   };
 
+
+
   selectImageHandler = (image) => {
     this.setState((prevState) => {
       return {

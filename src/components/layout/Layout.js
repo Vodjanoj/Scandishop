@@ -6,7 +6,7 @@ class Layout extends Component {
   render() {
     return (
       <>
-        <MainNavigation />
+        <MainNavigation/>
         <main className={classes.main}>{this.props.children}</main>
       </>
     );

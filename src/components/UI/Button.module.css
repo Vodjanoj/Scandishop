@@ -1,5 +1,6 @@
 .btn {
-  padding: 15px 94px;
+  width: 292px;
+  height: 52px;
   margin-bottom: 35px;
   border: none;
   font: inherit;
@@ -9,10 +10,35 @@
   font-weight: 600;
   color: #ffffff;
   background-color: #5ece7b;
-  transition: opacity 0.5s ease;
+  transition: box-shadow 0.3s ease, text-shadow 0.2s linear;
   text-transform: uppercase;
   cursor: pointer;
-  opacity: 1;
+}
+
+.view-bag {
+  width: 140px;
+  height: 43px;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #1D1F22;
+  border: 1px solid #1D1F22;
+  margin: 0;
+}
+
+.check-out {
+  width: 140px;
+  height: 43px;
+  font-size: 14px;
+  margin: 0;
+
+}
+
+.btn:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button:active {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .btn:disabled {
@@ -23,9 +49,6 @@
 
 .btn:disabled:hover {
   opacity: 0.8;
-}
-
-.btn:hover {
-  opacity: 0.9;
-  
+  box-shadow: none;
+  text-shadow: none;
 }

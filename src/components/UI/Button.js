@@ -5,10 +5,13 @@ class Button extends Component {
   render() {
     return (
       <button
-        className={classes.btn}
+        className={`${classes[`btn`]} ${this.props.viewBag &&
+          classes[`view-bag`]} ${this.props.checkOut && classes[`check-out`]}`}
         disabled={this.props.disabled}
         onClick={this.props.clicked}
-      >{this.props.children}</button>
+      >
+        {this.props.children}
+      </button>
     );
   }
 }

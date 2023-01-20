@@ -32,6 +32,7 @@
   padding: 30px 15px;
 
   text-decoration: none;
+  transition: text-shadow 0.5s ease;
   position: relative;
   color: #1d1f22;
 }
@@ -50,17 +51,25 @@
   transition: opacity 0.3s linear;
 }
 
-.nav a:hover,
+.nav a:hover {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
 .nav a:active,
+.nav a:active:hover,
 .nav a.active {
   color: #5ece7b;
   font-weight: 600;
 }
 
-.nav a:hover:after,
 .nav a.active:after {
   opacity: 1;
+  transition: box-shadow 0.5s ease;
 }
+
+.nav a.active:hover:after {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 
 .nav a::before {
   display: block;

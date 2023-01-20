@@ -1,4 +1,3 @@
-import { isAsyncThunkAction } from "@reduxjs/toolkit";
 import React, { Component } from "react";
 import ProductAttributes from "../Shopping/ProductAttributes";
 import classes from "./CartItem.module.css";
