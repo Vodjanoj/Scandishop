@@ -13,16 +13,17 @@ class ProductAttributes extends Component {
   };
 
   render() {
-    console.log('this.props.type', this.props.type)
+    const { cartOverlay } = this.props;
+    console.log('this.props.type', this.props)
     return (
       <>
         <div
-          className={`${classes.name} ${this.props.type === "miniCart" ?
-            classes[`cart-overlay`] : ''}`}
+          className={`${classes.name} ${cartOverlay ?
+            classes.overlay : ''}`}
         >
           {this.props.name}:
         </div>
-        <div className={`${classes['attribute-items']} ${this.props.type === "miniCart" ?
+        <div className={`${classes['attribute-items']} ${this.props.cartOverlay ?
             classes[`cart-overlay`] : ''}`}>
           {this.props.attributes.items.map((attItem, index) => (
             <ProductAttributesItem
@@ -38,6 +39,7 @@ class ProductAttributes extends Component {
                 this.props.onSelectAttr(this.props.name, attItem.id)
               }
               type={this.props.type}
+              cartOverlay={this.props.cartOverlay}
             />
           ))}
         </div>

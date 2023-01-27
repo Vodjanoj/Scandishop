@@ -3,17 +3,18 @@ import classes from "./Gallery.module.css";
 
 class Gallery extends Component {
   render() {
-    
     return (
       <>
         <div className={classes.gallery}>
           {this.props.images &&
             this.props.images.map((image, index) => (
-              <div key={index + image} className={classes.item}>
-                <img
-                  onClick={this.props.onSelectImage.bind(this, image)}
-                  src={image}
-                ></img>
+              <div
+                key={index + image}
+                className={classes.item}
+                onClick={this.props.onSelectImage.bind(this, image)}
+              >
+                <img src={image}></img>
+                <div className={classes["overlay-gray"]}></div>
               </div>
             ))}
         </div>

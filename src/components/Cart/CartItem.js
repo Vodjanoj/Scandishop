@@ -4,16 +4,19 @@ import classes from "./CartItem.module.css";
 
 class CartItem extends Component {
   render() {
+    const { mainCart, cartOverlay } = this.props;
+    console.log("cartOverlay", cartOverlay);
+
     const { symbol } = this.props.currPrice[0].currency;
     const { amount } = this.props.currPrice[0];
     return (
       <>
-        <li className={classes["cart-item"]}>
-          <div className={classes['item-summary']}>
-            <div className={classes["order-details"]}>
+        <li className={`${classes["cart-item"]} ${cartOverlay ? classes.overlay : ""}`}>
+          <div className={classes.summary}>
+            <div className={classes.details}>
               <div className={classes.brand}>{this.props.brand}</div>
-              <div className={classes.name}>{this.props.name}</div>
-              <span className={classes.price}>
+              <div  className={classes.name}>{this.props.name}</div>
+              <span className={classes.price}>{this.props.price}
                 {symbol}
                 {amount} 
               </span>
@@ -27,21 +30,27 @@ class CartItem extends Component {
                     attributes={attribute}
                     selectedAttributes={this.props.selectedAttributes}
                     onSelectAttr={this.onSelectAttrHandler}
-                    type={"miniCart"}
+                    cartOverlay={cartOverlay}
+                    mainCart = {mainCart}
                   />
                 ))}
               </div>
             </div>
-            <div className={classes['order-actions']}>
-              <div className={classes['add-item']} onClick={this.props.onAdd}></div>
+            <div className={classes.actions}>
+              <div
+                className={classes["add-item"]}
+                onClick={this.props.onAdd}
+              ></div>
               <div className={classes.amount}>{this.props.quantity}</div>
-              <div className={classes['delete-item']} onClick={this.props.onRemove}></div>
+              <div
+                className={classes['delete-item']}
+                onClick={this.props.onRemove}
+              ></div>
             </div>
-
           </div>
-          <div className={classes['item-image']}>
-            <div className={classes.overlay}></div>
-            <img className={classes.image} src={this.props.picture}></img>
+          <div className={classes.image}>
+            <div className={classes['overlay-gray']}></div>
+            <img src={this.props.picture}></img>
           </div>
         </li>
       </>

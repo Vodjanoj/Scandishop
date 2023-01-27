@@ -16,6 +16,7 @@
 }
 
 .view-bag {
+ margin: 20px;
   width: 140px;
   height: 43px;
   font-size: 14px;
@@ -30,7 +31,11 @@
   height: 43px;
   font-size: 14px;
   margin: 0;
+}
 
+.order {
+  width: 279px;
+  height: 43px;
 }
 
 .btn:hover {

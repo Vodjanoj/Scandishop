@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import ProductList from "./ProductList";
 import { withRouter } from "react-router-dom";
-
+import classes from './Category.module.css'
 import { getProductsByCategory } from "../../graphql/queries";
 
 class Category extends Component {
   state = {
     productsByCategory: [],
+    categoryName: this.props.match.params.categoryName,
   };
 
   getData = (categoryName) => {
     const loadProductsByCatHandler = async () => {
       const data = await getProductsByCategory(categoryName);
-
+      console.log('getProductsByCategory(categoryName)', data)
       const loadedProductsByCat = [];
 
       for (const key of data) {
@@ -51,13 +52,18 @@ class Category extends Component {
     if (categoryName !== prevProps.match.params.categoryName) {
       console.log("did update");
       this.getData(categoryName);
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          categoryName: categoryName,
+        };
+      });
     }
   }
   render() {
-    // console.log('categoryAllProps:', this.props)
-    // console.log('categoryCerrencyfromStore:', this.props.setCurrSymbol)
     return (
       <>
+        <h2 className={classes.name}>{this.state.categoryName}</h2>
         <ProductList items={this.state.productsByCategory} />
       </>
     );

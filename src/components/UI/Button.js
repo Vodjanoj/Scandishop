@@ -6,7 +6,8 @@ class Button extends Component {
     return (
       <button
         className={`${classes[`btn`]} ${this.props.viewBag &&
-          classes[`view-bag`]} ${this.props.checkOut && classes[`check-out`]}`}
+          classes[`view-bag`]} ${this.props.checkOut &&
+          classes[`check-out`]} ${this.props.order && classes[`order`]}`}
         disabled={this.props.disabled}
         onClick={this.props.clicked}
       >

@@ -6,7 +6,6 @@ import { getCategories } from "../../graphql/queries";
 import mainLogo from "../../assets/a-logo.png";
 import Dropdown from "./Dropdown";
 import CartGroup from "../Cart/CartGroup";
-import { filterPrices } from "../Utils/filterPrices";
 import { withRouter } from "react-router-dom";
 
 class MainNavigation extends Component {
@@ -14,22 +13,7 @@ class MainNavigation extends Component {
     allCategories: [],
   };
 
-  calcTotalPrice = (currSymb, products) => {
-    return products.reduce((sum, { prices, quantity }) => {
-      const price = filterPrices(prices, currSymb);
-      if (price.length > 0) {
-        return sum + price[0].amount * quantity;
-      }
-    }, 0);
-  };
-
-
-
   componentDidMount() {
-    const activeIndex = sessionStorage.getItem("scandi-activeNavIndex");
-    if (activeIndex) {
-        this.setState({ activeIndex: parseInt(activeIndex, 10) });
-    }
     const loadAllCategoriesHandler = async () => {
       const data = await getCategories();
 
@@ -41,14 +25,6 @@ class MainNavigation extends Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
-
-    // Split the pathname into segments
-    const splitPathname = pathname.split("/");
-
-    // Get the last segment of the pathname
-    const lastPathElement = splitPathname[splitPathname.length - 1];
-
     return (
       <header className={classes.header}>
         <div className={classes.inner}>
@@ -69,14 +45,7 @@ class MainNavigation extends Component {
           </div>
           <div className={classes.toolbar}>
             <Dropdown />
-            <CartGroup
-              totalPrice={this.calcTotalPrice(
-                this.props.setCurrSymbol,
-                this.props.products
-              )}
-              setCurrSymbol={this.props.setCurrSymbol}
-              totalQuantity={this.props.totalQuantity}
-            />
+            <CartGroup totalQuantity={this.props.totalQuantity} />
           </div>
         </div>
       </header>
@@ -86,8 +55,6 @@ class MainNavigation extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    setCurrSymbol: state.currency.setCurrSymbol,
-    products: state.cart.items,
     totalQuantity: state.cart.totalQuantity,
   };
 };

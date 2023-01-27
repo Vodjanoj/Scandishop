@@ -9,18 +9,18 @@ class ProductAttributesItem extends Component {
       <>
         <label
           className={`${classes[`attribute-item`]} ${!isColor &&
-            classes[`not-colored`]} ${this.props.type === "miniCart" &&
+            classes[`not-colored`]} ${this.props.cartOverlay &&
             classes[`cart-overlay`]}`}
           style={{
             backgroundColor: isColor && this.props.displValue,
-            width: !isColor && this.props.type !== "miniCart" && "63px",
-            height: !isColor && this.props.type !== "miniCart" && "45px",
+            width: !isColor && !this.props.cartOverlay && "63px",
+            height: !isColor && !this.props.cartOverlay && "45px",
           }}
         >
           <input
             type="radio"
             name={
-              this.props.type === "miniCart"
+              this.props.cartOverlay
                 ? this.props.id + "_" + this.props.name
                 : this.props.name
             }
@@ -30,14 +30,14 @@ class ProductAttributesItem extends Component {
               this.props.selected[0].selectedAttrItemId ===
                 this.props.displValue
             }
-            disabled={this.props.type === "miniCart" && true}
+            disabled={this.props.cartOverlay && true}
             onChange={this.props.changeAtr}
           ></input>
           <span
             className={classes.checkmark}
             style={{
-            width: !isColor && this.props.type !== "miniCart" && "63px",
-            height: !isColor && this.props.type !== "miniCart" && "45px",
+            width: !isColor && !this.props.cartOverlay && "63px",
+            height: !isColor && !this.props.cartOverlay && "45px",
           }}
           >
             {!isColor && this.props.value}

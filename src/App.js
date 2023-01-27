@@ -36,10 +36,10 @@ class App extends Component {
               <Category />
             </Route>
             <Route path="/categories/:categoryName/:productId">
-               <ProductDetails />
+              <ProductDetails />
             </Route>
             <Route path="/cart">
-               <Cart />
+              <Cart />
             </Route>
           </Switch>
         </Layout>

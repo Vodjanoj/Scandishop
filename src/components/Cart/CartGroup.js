@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import cartIcon from "../../assets/cart-icon.png";
-import CartOverlay from "./CartOverlay";
+import Cart from "./Cart";
 import classes from "./CartGroup.module.css";
 
 class CartGroup extends Component {
   state = {
-    cartIsShown: false,
+    cartOverlayIsShown: false,
   };
 
   toggleCartHandler = () => {
     this.setState((prevState) => {
-      return { cartIsShown: !prevState.cartIsShown };
+      return { cartOverlayIsShown: !prevState.cartOverlayIsShown };
     });
   };
 
   closeCartOverlayHandler = () => {
-    this.setState({ cartIsShown: false });
+    this.setState({ cartOverlayIsShown: false });
   };
 
   render() {
-    console.log("this.state.cartIsShown", this.state.cartIsShown);
+    console.log("this.state.cartIsShown", this.state.cartOverlayIsShown);
     return (
       <div className={classes.icon} onClick={this.toggleCartHandler}>
         <img className={classes["cart-icon"]} src={cartIcon}></img>
@@ -28,11 +28,9 @@ class CartGroup extends Component {
             {this.props.totalQuantity}
           </span>
         )}
-        {this.state.cartIsShown && (
-          <CartOverlay
-            totalPrice={this.props.totalPrice}
-            totalQuantity={this.props.totalQuantity}
-            setCurrSymbol={this.props.setCurrSymbol}
+        {this.state.cartOverlayIsShown && (
+          <Cart
+            cartOverlay
             closeCartOverlay={this.closeCartOverlayHandler}
           />
         )}
