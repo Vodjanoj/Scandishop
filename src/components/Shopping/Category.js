@@ -13,7 +13,6 @@ class Category extends Component {
   getData = (categoryName) => {
     const loadProductsByCatHandler = async () => {
       const data = await getProductsByCategory(categoryName);
-      console.log('getProductsByCategory(categoryName)', data)
       const loadedProductsByCat = [];
 
       for (const key of data) {
@@ -46,11 +45,8 @@ class Category extends Component {
 
   componentDidUpdate(prevProps) {
     const categoryName = this.props.match.params.categoryName;
-    console.log("categoryName", this.props.match.params.categoryName);
-    console.log("prevProps.match.params.productId", prevProps);
 
     if (categoryName !== prevProps.match.params.categoryName) {
-      console.log("did update");
       this.getData(categoryName);
       this.setState((prevState) => {
         return {

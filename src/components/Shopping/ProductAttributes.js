@@ -40,6 +40,7 @@ class ProductAttributes extends Component {
               }
               type={this.props.type}
               cartOverlay={this.props.cartOverlay}
+              mainCart={this.props.mainCart}
             />
           ))}
         </div>

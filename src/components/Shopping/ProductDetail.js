@@ -21,7 +21,7 @@ class ProductDetail extends Component {
     return { __html: this.state.productDetails.description };
   };
 
-  onSelectAttrHandler = (attId, attItemId) => {
+  selectAttrHandler = (attId, attItemId) => {
     const updatedSelcAttr = this.state.selectedAttributes.map((attribute) =>
       attribute.id === attId
         ? { ...attribute, selectedAttrItemId: attItemId }
@@ -132,7 +132,7 @@ class ProductDetail extends Component {
                       name={attribute.name}
                       attributes={attribute}
                       selectedAttributes={this.state.selectedAttributes}
-                      onSelectAttr={this.onSelectAttrHandler}
+                      onSelectAttr={this.selectAttrHandler}
                     />
                   )
                 )}

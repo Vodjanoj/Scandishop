@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ProductAttributes from "../Shopping/ProductAttributes";
 import classes from "./CartItem.module.css";
+import ImageCarousel from "./ImageCarousel";
 
 class CartItem extends Component {
   render() {
@@ -48,10 +49,11 @@ class CartItem extends Component {
               ></div>
             </div>
           </div>
-          <div className={classes.image}>
+          {mainCart && <ImageCarousel images={this.props.images}/> }
+          {cartOverlay && <div className={classes.image}>
             <div className={classes['overlay-gray']}></div>
-            <img src={this.props.picture}></img>
-          </div>
+            <img src={this.props.mainPicture}></img>
+          </div>}
         </li>
       </>
     );

@@ -1,9 +1,8 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const defaultCartState = {
   items: [],
   totalQuantity: 0,
-  totalPrice: 0,
 };
 
 const cartSlice = createSlice({
@@ -20,17 +19,15 @@ const cartSlice = createSlice({
       );
       const existingCartItem = state.items[existingCartItemIndex];
 
+      // Using Redux Toolkit it is allowed to write state updates in a mutable way as Toolkit uses Immer under the hood,
+      // it will automatically produce a new, updated state object, preserving the immutability of the state
       if (!existingCartItem) {
         state.items = state.items.concat(newItem);
       } else {
-        const updatedItem = {
+        state.items[existingCartItemIndex] = {
           ...existingCartItem,
           quantity: existingCartItem.quantity + 1,
         };
-
-        const updatedItems = [...state.items];
-        updatedItems[existingCartItemIndex] = updatedItem;
-        state.items = [...updatedItems];
       }
     },
 
@@ -43,20 +40,13 @@ const cartSlice = createSlice({
 
       const existingCartItem = state.items[existingCartItemIndex];
 
-      let updatedItems;
-
       if (existingCartItem.quantity === 1) {
-        updatedItems = state.items.filter((item) => item.id !== itemId);
-        state.items = [...updatedItems];
+        state.items = state.items.filter((item) => item.id !== itemId);
       } else {
-        const updatedItem = {
+        state.items[existingCartItemIndex] = {
           ...existingCartItem,
           quantity: existingCartItem.quantity - 1,
         };
-
-        updatedItems = [...state.items];
-        updatedItems[existingCartItemIndex] = updatedItem;
-        state.items = [...updatedItems];
       }
     },
   },
@@ -64,6 +54,3 @@ const cartSlice = createSlice({
 
 export const cartActions = cartSlice.actions;
 export default cartSlice;
-
-
- 

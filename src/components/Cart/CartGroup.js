@@ -4,9 +4,18 @@ import Cart from "./Cart";
 import classes from "./CartGroup.module.css";
 
 class CartGroup extends Component {
+  cartoverlayRef = React.createRef();
   state = {
     cartOverlayIsShown: false,
   };
+
+  componentDidMount() {
+    document.addEventListener("click", this.clickOutsideHandler);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.clickOutsideHandler);
+  }
 
   toggleCartHandler = () => {
     this.setState((prevState) => {
@@ -18,21 +27,30 @@ class CartGroup extends Component {
     this.setState({ cartOverlayIsShown: false });
   };
 
+  clickOutsideHandler = (event) => {
+    const current = this.cartoverlayRef.current;
+
+    if (!current.contains(event.target)) {
+      this.setState({ cartOverlayIsShown: false });
+    }
+  };
+
   render() {
-    console.log("this.state.cartIsShown", this.state.cartOverlayIsShown);
+    
     return (
-      <div className={classes.icon} onClick={this.toggleCartHandler}>
-        <img className={classes["cart-icon"]} src={cartIcon}></img>
+      <div ref={this.cartoverlayRef} className={classes.icon} onClick={this.toggleCartHandler}>
+        <img
+          className={classes["cart-icon"]}
+          src={cartIcon}
+          alt="Shopping art"
+        ></img>
         {this.props.totalQuantity > 0 && (
           <span className={classes["products-count"]}>
             {this.props.totalQuantity}
           </span>
         )}
         {this.state.cartOverlayIsShown && (
-          <Cart
-            cartOverlay
-            closeCartOverlay={this.closeCartOverlayHandler}
-          />
+          <Cart cartOverlay closeCartOverlay={this.closeCartOverlayHandler} />
         )}
       </div>
     );

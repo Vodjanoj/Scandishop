@@ -9,6 +9,12 @@ import Button from "../UI/Button";
 import { Link } from "react-router-dom";
 
 class Cart extends Component {
+  componentDidMount() {
+    if (!this.props.cartOverlay) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   calcTotalPrice = (currSymb, products) => {
     return products.reduce((sum, { prices, quantity }) => {
       const price = filterPrices(prices, currSymb);
@@ -35,19 +41,14 @@ class Cart extends Component {
       this.props.setCurrSymbol,
       this.props.products
     );
-    let tax;
-    if (totalPrice === 0) {
-      tax = 0;
-    } else {
-      tax = totalPrice * 0.21;
-    }
-   
+    let tax = (totalPrice * 0.21).toFixed(2);
+
     console.log("setCurrSymbol", this.props.setCurrSymbol);
     return (
       <>
         <div
           className={`${classes.cart} ${cartOverlay ? classes.overlay : ""}`}
-          onClick={(e) => e.stopPropagation()}
+          onClick={cartOverlay && ((e) => e.stopPropagation())}
         >
           <div className={classes.inner}>
             {!cartOverlay && <h2 className={classes.title}>Cart</h2>}
@@ -76,7 +77,8 @@ class Cart extends Component {
                     name={orderItem.name}
                     brand={orderItem.brand}
                     quantity={orderItem.quantity}
-                    picture={orderItem.gallery[0]}
+                    images={orderItem.gallery}
+                    mainPicture={orderItem.gallery[0]}
                     mainCart={!cartOverlay}
                     cartOverlay={cartOverlay}
                     currPrice={filterPrices(
@@ -95,7 +97,8 @@ class Cart extends Component {
                 <div className={classes["order-tax"]}>
                   <div className={classes["summary-title"]}>Tax 21%:</div>
                   <div className={classes["summary-count"]}>
-                    {this.props.setCurrSymbol}{tax.toFixed(2)}
+                    {this.props.setCurrSymbol}
+                    {tax}
                   </div>
                 </div>
                 <div className={classes["order-quantity"]}>

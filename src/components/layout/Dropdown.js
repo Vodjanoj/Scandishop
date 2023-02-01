@@ -7,12 +7,14 @@ import { currencyActions } from "../../store/currency-slice";
 import DropdownItem from "./DropdownItem";
 
 class Dropdown extends Component {
+  dropdownRef = React.createRef();
   state = {
     toggleDropdown: false,
     allCurrencies: [],
   };
 
   componentDidMount() {
+    document.addEventListener("click", this.clickOutsideHandler);
     const loadAllCurrenciesHandler = async () => {
       const data = await getCurrencies();
 
@@ -23,18 +25,30 @@ class Dropdown extends Component {
     this.props.onInitCurrency(); // Redux Thunk
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("click", this.clickOutsideHandler);
+  }
+
   toggleDropdownHandler = () => {
     this.setState((prevState) => {
       return { toggleDropdown: !prevState.toggleDropdown };
     });
   };
 
+  clickOutsideHandler = (event) => {
+    const current = this.dropdownRef.current;
+
+    if (!current.contains(event.target)) {
+      this.setState({ toggleDropdown: false });
+    }
+  };
+
   render() {
     return (
-      <div
+      <div ref={this.dropdownRef}
         onClick={this.toggleDropdownHandler}
-        className={`${classes.currency} ${this.state
-          .toggleDropdown && classes.active}`}
+        className={`${classes.currency} ${this.state.toggleDropdown &&
+          classes.active}`}
       >
         {this.props.setCurrSymbol}
 
