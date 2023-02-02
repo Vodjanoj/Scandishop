@@ -15,7 +15,7 @@ class Cart extends Component {
     }
   }
 
-  calcTotalPrice = (currSymb, products) => {
+  calcTotalPriceHandler = (currSymb, products) => {
     return products.reduce((sum, { prices, quantity }) => {
       const price = filterPrices(prices, currSymb);
 
@@ -35,15 +35,18 @@ class Cart extends Component {
   };
 
   render() {
-    const { cartOverlay } = this.props;
+    const {
+      cartOverlay,
+      setCurrSymbol,
+      products,
+      totalQuantity,
+      onCloseCartOverlay,
+    } = this.props;
 
-    const totalPrice = this.calcTotalPrice(
-      this.props.setCurrSymbol,
-      this.props.products
-    );
+    const totalPrice = this.calcTotalPriceHandler(setCurrSymbol, products);
+
     let tax = (totalPrice * 0.21).toFixed(2);
-
-    console.log("setCurrSymbol", this.props.setCurrSymbol);
+    console.log("Cart", this.props);
     return (
       <>
         <div
@@ -52,7 +55,7 @@ class Cart extends Component {
         >
           <div className={classes.inner}>
             {!cartOverlay && <h2 className={classes.title}>Cart</h2>}
-            {!cartOverlay && this.props.totalQuantity < 1 && (
+            {!cartOverlay && totalQuantity < 1 && (
               <div className={classes["empty-info"]}>
                 <span className={classes.bag}>Cart is empty</span>
                 <p>Looks like you have not made a choice yet.</p>
@@ -62,17 +65,15 @@ class Cart extends Component {
             {cartOverlay && (
               <h2 className={classes.title}>
                 <span className={classes.bag}>My Bag</span>
-                {this.props.totalQuantity > 0
-                  ? `, ${this.props.totalQuantity} items`
-                  : " is empty"}
+                {totalQuantity > 0 ? `, ${totalQuantity} items` : " is empty"}
               </h2>
             )}
-            {this.props.products.length > 0 && (
+            {products.length > 0 && (
               <ul className={classes.items}>
-                {this.props.products.map((orderItem, index) => (
+                {products.map((orderItem, index) => (
                   <CartItem
-                    id={orderItem.id + index}
-                    key={orderItem + orderItem.id}
+                    orderItemId={orderItem.id}
+                    key={index + orderItem.id}
                     attributes={orderItem.attributes}
                     name={orderItem.name}
                     brand={orderItem.brand}
@@ -81,10 +82,7 @@ class Cart extends Component {
                     mainPicture={orderItem.gallery[0]}
                     mainCart={!cartOverlay}
                     cartOverlay={cartOverlay}
-                    currPrice={filterPrices(
-                      orderItem.prices,
-                      this.props.setCurrSymbol
-                    )}
+                    currPrice={filterPrices(orderItem.prices, setCurrSymbol)}
                     selectedAttributes={orderItem.selectedAttributes}
                     onAdd={this.addItemHandler.bind(null, orderItem)}
                     onRemove={this.removeItemHandler.bind(null, orderItem.id)}
@@ -97,21 +95,21 @@ class Cart extends Component {
                 <div className={classes["order-tax"]}>
                   <div className={classes["summary-title"]}>Tax 21%:</div>
                   <div className={classes["summary-count"]}>
-                    {this.props.setCurrSymbol}
+                    {setCurrSymbol}
                     {tax}
                   </div>
                 </div>
                 <div className={classes["order-quantity"]}>
                   <div className={classes["summary-title"]}>Quantity:</div>
                   <div className={classes["summary-count"]}>
-                    {this.props.totalQuantity}
+                    {totalQuantity}
                   </div>
                 </div>
 
                 <div className={classes["order-price"]}>
                   <div className={classes.total}>Total</div>
                   <div className={classes.price}>
-                    {this.props.setCurrSymbol}
+                    {setCurrSymbol}
                     {totalPrice.toFixed(2)}
                   </div>
                 </div>
@@ -121,7 +119,7 @@ class Cart extends Component {
               <div className={classes["order-summary-overlay"]}>
                 <div className={classes.total}>Total:</div>
                 <div className={classes.price}>
-                  {this.props.setCurrSymbol}
+                  {setCurrSymbol}
                   {totalPrice.toFixed(2)}
                 </div>
               </div>
@@ -130,21 +128,21 @@ class Cart extends Component {
             <div className={classes["order-controls"]}>
               {cartOverlay && (
                 <Link to={"/cart"}>
-                  <Button viewBag clicked={this.props.closeCartOverlay}>
+                  <Button viewBag clicked={onCloseCartOverlay}>
                     View Bag
                   </Button>
                 </Link>
               )}
               {cartOverlay && (
                 <Link to={"/checkout"}>
-                  <Button checkOut clicked={this.props.closeCartOverlay}>
+                  <Button checkOut clicked={onCloseCartOverlay}>
                     Check Out
                   </Button>
                 </Link>
               )}
               {!cartOverlay && (
                 <Link to={"/order"}>
-                  <Button order clicked={this.props.closeCartOverlay}>
+                  <Button order clicked={onCloseCartOverlay}>
                     Order
                   </Button>
                 </Link>
@@ -158,7 +156,7 @@ class Cart extends Component {
   }
 }
 
-const matStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     products: state.cart.items,
     totalQuantity: state.cart.totalQuantity,
@@ -173,4 +171,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(matStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

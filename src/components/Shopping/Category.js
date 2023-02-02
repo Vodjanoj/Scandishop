@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ProductList from "./ProductList";
 import { withRouter } from "react-router-dom";
-import classes from './Category.module.css'
+import classes from "./Category.module.css";
 import { getProductsByCategory } from "../../graphql/queries";
 
 class Category extends Component {
@@ -38,13 +38,15 @@ class Category extends Component {
   };
 
   componentDidMount() {
-    const categoryName = this.props.match.params.categoryName;
+    const { match } = this.props;
+    const categoryName = match.params.categoryName;
 
     this.getData(categoryName);
   }
 
   componentDidUpdate(prevProps) {
-    const categoryName = this.props.match.params.categoryName;
+    const { match } = this.props;
+    const categoryName = match.params.categoryName;
 
     if (categoryName !== prevProps.match.params.categoryName) {
       this.getData(categoryName);
@@ -57,10 +59,11 @@ class Category extends Component {
     }
   }
   render() {
+    const { categoryName, productsByCategory } = this.state;
     return (
       <>
-        <h2 className={classes.name}>{this.state.categoryName}</h2>
-        <ProductList items={this.state.productsByCategory} />
+        <h2 className={classes.name}>{categoryName}</h2>
+        <ProductList productItems={productsByCategory} />
       </>
     );
   }

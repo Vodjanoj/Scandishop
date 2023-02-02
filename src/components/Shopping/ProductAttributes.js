@@ -3,12 +3,13 @@ import ProductAttributesItem from "./ProductAttributesItem";
 import classes from "./ProductAttributes.module.css";
 
 class ProductAttributes extends Component {
-  findSelected = (attrId, attrName) => {
+  findSelected = (attrItemId, attrId) => {
     const filteredAttrId = this.props.selectedAttributes.filter(
       (selectedAtr) =>
-        selectedAtr.selectedAttrItemId === attrId &&
-        selectedAtr.name === attrName
+        selectedAtr.selectedAttrItemId === attrItemId &&
+        selectedAtr.id === attrId
     );
+    console.log('filteredAttrId', filteredAttrId)
     return filteredAttrId;
   };
 
@@ -21,22 +22,22 @@ class ProductAttributes extends Component {
           className={`${classes.name} ${cartOverlay ?
             classes.overlay : ''}`}
         >
-          {this.props.name}:
+          {this.props.attrName}:
         </div>
         <div className={`${classes['attribute-items']} ${this.props.cartOverlay ?
             classes[`cart-overlay`] : ''}`}>
-          {this.props.attributes.items.map((attItem, index) => (
+          {this.props.attributes.items.map((attrItem, index) => (
             <ProductAttributesItem
-              id={this.props.id}
-              key={index + attItem.id}
+              orderItemId={this.props.orderItemId}
+              key={index + attrItem.id}
               index={index}
-              displValue={attItem.displayValue}
-              name={this.props.name}
-              selected={this.findSelected(attItem.id, this.props.name)}
-              isColor={this.props.name === "Color"}
-              value={attItem.value}
+              displValue={attrItem.displayValue}
+              attrName={this.props.attrName}
+              selected={this.findSelected(attrItem.id, this.props.attrId)}
+              isColor={this.props.attrName === "Color"}
+              value={attrItem.value}
               changeAtr={() =>
-                this.props.onSelectAttr(this.props.name, attItem.id)
+                this.props.onSelectAttr(this.props.attrId, attrItem.id)
               }
               type={this.props.type}
               cartOverlay={this.props.cartOverlay}

@@ -36,21 +36,24 @@ class CartGroup extends Component {
   };
 
   render() {
-    
+    const { totalQuantity } = this.props;
+    const { cartOverlayIsShown } = this.state;
     return (
-      <div ref={this.cartoverlayRef} className={classes.icon} onClick={this.toggleCartHandler}>
+      <div
+        ref={this.cartoverlayRef}
+        className={classes.icon}
+        onClick={this.toggleCartHandler}
+      >
         <img
           className={classes["cart-icon"]}
           src={cartIcon}
           alt="Shopping art"
         ></img>
-        {this.props.totalQuantity > 0 && (
-          <span className={classes["products-count"]}>
-            {this.props.totalQuantity}
-          </span>
+        {totalQuantity > 0 && (
+          <span className={classes["products-count"]}>{totalQuantity}</span>
         )}
-        {this.state.cartOverlayIsShown && (
-          <Cart cartOverlay closeCartOverlay={this.closeCartOverlayHandler} />
+        {cartOverlayIsShown && (
+          <Cart cartOverlay onCloseCartOverlay={this.closeCartOverlayHandler} />
         )}
       </div>
     );

@@ -13,13 +13,13 @@ class Gallery extends Component {
                 className={classes.item}
                 onClick={this.props.onSelectImage.bind(this, image)}
               >
-                <img src={image}></img>
+                <img src={image} alt={this.props.brand + ', ' +this.props.name + ' thumbnail'}></img>
                 <div className={classes["overlay-gray"]}></div>
               </div>
             ))}
         </div>
         <div className={classes["main-image"]}>
-          {this.props.images && <img src={this.props.selectedImage}></img>}
+          {this.props.images && <img src={this.props.selectedImage} alt={this.props.brand + ', ' +this.props.name}></img>}
         </div>
       </>
     );

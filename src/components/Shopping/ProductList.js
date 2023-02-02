@@ -25,7 +25,9 @@ class ProductList extends Component {
         ""
       );
 
-      this.props.onAddToCart({
+      const { onAddToCart } = this.props;
+
+      onAddToCart({
         id: prodItem.id + idForCart,
         brand: prodItem.brand,
         name: prodItem.name,
@@ -40,19 +42,20 @@ class ProductList extends Component {
   };
 
   render() {
+    const { productItems, setCurrSymbol } = this.props;
     return (
       <>
         <div className={classes.products}>
-          {this.props.items.map((item, index) => (
+          {productItems.map((item, index) => (
             <ProductItem
+              key={index + item.id}
               id={item.id}
               addToCart={(event) => this.addToCartHandler(event, item)}
-              key={index}
               brand={item.brand}
               name={item.name}
               inStock={item.inStock}
               prices={item.prices}
-              currPrice={filterPrices(item.prices, this.props.setCurrSymbol)}
+              currPrice={filterPrices(item.prices, setCurrSymbol)}
               image={item.image}
             />
           ))}
