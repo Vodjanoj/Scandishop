@@ -25,6 +25,8 @@ class ProductAttributesItem extends Component {
           }`}
           style={{
             backgroundColor: isColor && value,
+            outline: value === "#FFFFFF" && "1px solid #000000",
+            outlineOffset: value === "#FFFFFF" && "-1px",
           }}
         >
           <input
