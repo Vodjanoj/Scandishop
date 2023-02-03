@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/layout/Layout";
 import Category from "./components/Products/Category";
 import Cart from "./components/Cart/Cart";
 import ProductDetails from "./components/Products/ProductDetail";
