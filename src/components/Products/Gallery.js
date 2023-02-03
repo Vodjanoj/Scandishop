@@ -3,23 +3,24 @@ import classes from "./Gallery.module.css";
 
 class Gallery extends Component {
   render() {
+    const { images, name, brand, selectedImage, onSelectImage } = this.props;
     return (
       <>
         <div className={classes.gallery}>
-          {this.props.images &&
-            this.props.images.map((image, index) => (
+          {images &&
+            images.map((image, index) => (
               <div
-                key={index + image}
+                key={index + brand}
                 className={classes.item}
-                onClick={this.props.onSelectImage.bind(this, image)}
+                onClick={onSelectImage.bind(this, image)}
               >
-                <img src={image} alt={this.props.brand + ', ' +this.props.name + ' thumbnail'}></img>
+                <img src={image} alt={brand + ", " + name + " thumbnail"}></img>
                 <div className={classes["overlay-gray"]}></div>
               </div>
             ))}
         </div>
         <div className={classes["main-image"]}>
-          {this.props.images && <img src={this.props.selectedImage} alt={this.props.brand + ', ' +this.props.name}></img>}
+          {images && <img src={selectedImage} alt={brand + ", " + name}></img>}
         </div>
       </>
     );

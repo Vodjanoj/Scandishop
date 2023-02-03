@@ -3,15 +3,25 @@ import classes from "./Button.module.css";
 
 class Button extends Component {
   render() {
+    const {
+      type,
+      viewBag,
+      checkOut,
+      order,
+      disabled,
+      clicked,
+      children,
+    } = this.props;
     return (
       <button
-        className={`${classes[`btn`]} ${this.props.viewBag &&
-          classes[`view-bag`]} ${this.props.checkOut &&
-          classes[`check-out`]} ${this.props.order && classes[`order`]}`}
-        disabled={this.props.disabled}
-        onClick={this.props.clicked}
+        type={type || "button"}
+        className={`${classes[`btn`]} ${viewBag ? classes[`view-bag`] : ""} ${
+          checkOut ? classes[`check-out`] : ""
+        } ${order ? classes[`order`] : ""}`}
+        disabled={disabled}
+        onClick={clicked}
       >
-        {this.props.children}
+        {children}
       </button>
     );
   }

@@ -27,6 +27,7 @@
 
 .details {
   flex-basis: 95.5%;
+  padding-left: 2px;
 }
 
 .cart-item.overlay .details {

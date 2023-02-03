@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Layout from "./components/Layout/Layout";
-import Category from "./components/Shopping/Category";
+import Category from "./components/Products/Category";
 import Cart from "./components/Cart/Cart";
-import ProductDetails from "./components/Shopping/ProductDetail";
+import ProductDetails from "./components/Products/ProductDetail";
 import { getCategories } from "./graphql/queries";
 import { Route, Switch, Redirect } from "react-router-dom";
 
@@ -13,23 +13,29 @@ class App extends Component {
 
   componentDidMount() {
     const loadAllCageriesHandler = async () => {
-      const data = await getCategories();
+      try {
+        const data = await getCategories();
 
-      this.setState({
-        allCategory: data[0].name,
-      });
+        this.setState({
+          allCategory: data[0].name,
+        });
+      } catch (error) {
+        console.log("Something went wrong!");
+        console.log(error);
+      }
     };
     loadAllCageriesHandler();
   }
 
   render() {
+    const { allCategory } = this.state;
     return (
       <div>
         <Layout>
           <Switch>
             <Route path="/" exact>
-              {this.state.allCategory.length > 0 && (
-                <Redirect to={`/categories/${this.state.allCategory}`} />
+              {allCategory.length > 0 && (
+                <Redirect to={`/categories/${allCategory}`} />
               )}
             </Route>
             <Route path="/categories/:categoryName/" exact>

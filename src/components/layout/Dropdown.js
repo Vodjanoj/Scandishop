@@ -16,13 +16,18 @@ class Dropdown extends Component {
   componentDidMount() {
     document.addEventListener("click", this.clickOutsideHandler);
     const loadAllCurrenciesHandler = async () => {
-      const data = await getCurrencies();
+      try {
+        const data = await getCurrencies();
 
-      this.setState({ allCurrencies: data });
+        this.setState({ allCurrencies: data });
+      } catch (error) {
+        console.log("Something went wrong!");
+        console.log(error);
+      }
     };
     loadAllCurrenciesHandler();
 
-    this.props.onInitCurrency(); // Redux Thunk
+    this.props.onInitCurrency(); // fires Redux Thunk initCurrency
   }
 
   componentWillUnmount() {
@@ -44,22 +49,25 @@ class Dropdown extends Component {
   };
 
   render() {
+    const { setCurrSymbol, onCurrencySwitch } = this.props;
+    const { allCurrencies, toggleDropdown } = this.state;
     return (
-      <div ref={this.dropdownRef}
+      <div
+        ref={this.dropdownRef}
         onClick={this.toggleDropdownHandler}
-        className={`${classes.currency} ${this.state.toggleDropdown &&
-          classes.active}`}
+        className={`${classes.currency} ${
+          toggleDropdown ? classes.active : ""
+        }`}
       >
-        {this.props.setCurrSymbol}
-
-        {this.state.toggleDropdown && (
+        {setCurrSymbol}
+        {toggleDropdown && (
           <ul>
-            {this.state.allCurrencies.map((item, index) => (
+            {allCurrencies.map((item, index) => (
               <DropdownItem
                 key={index + item.symbol}
                 symbol={item.symbol}
                 label={item.label}
-                onClick={() => this.props.onCurrencySwitch(item.symbol)}
+                onSelect={() => onCurrencySwitch(item.symbol)}
               />
             ))}
           </ul>

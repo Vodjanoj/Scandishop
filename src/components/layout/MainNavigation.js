@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import classes from "./MainNavigation.module.css";
 import { getCategories } from "../../graphql/queries";
@@ -11,25 +11,35 @@ import { withRouter } from "react-router-dom";
 class MainNavigation extends Component {
   state = {
     allCategories: [],
+    error: false,
   };
 
   componentDidMount() {
     const loadAllCategoriesHandler = async () => {
+      try {
       const data = await getCategories();
 
       this.setState({
         allCategories: data,
       });
-    };
+    } catch (error) {
+      this.setState({ error: true });
+    }
+  }
     loadAllCategoriesHandler();
   }
 
   render() {
+    const { allCategories, error } = this.state;
+    const { totalQuantity } = this.props;
+    if (error) {
+      return <p>Sorry, something went wrong!</p>;
+    }
     return (
       <header className={classes.header}>
         <div className={classes.inner}>
           <nav className={classes.nav}>
-            {this.state.allCategories.map((cat, index) => (
+            {allCategories.map((cat, index) => (
               <NavLink
                 key={index + cat.name}
                 activeClassName={classes.active}
@@ -41,11 +51,13 @@ class MainNavigation extends Component {
             ))}
           </nav>
           <div className={classes.logo}>
-            <img src={mainLogo} alt="Shopping!"></img>
+            <Link to={"/"} exact>
+              <img src={mainLogo} alt="Shopping!"></img>
+            </Link>
           </div>
           <div className={classes.toolbar}>
             <Dropdown />
-            <CartGroup totalQuantity={this.props.totalQuantity} />
+            <CartGroup totalQuantity={totalQuantity} />
           </div>
         </div>
       </header>

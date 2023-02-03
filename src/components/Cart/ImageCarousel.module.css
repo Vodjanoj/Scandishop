@@ -30,7 +30,7 @@
   bottom: 16px;
   z-index: 14;
   cursor: pointer;
-  transition: box-shadow 0.4s ease,
+  transition: box-shadow 0.4s ease;
 }
 
 .forward {
@@ -50,13 +50,12 @@
   left: 50%;
   transform: translateX(-35%) translateY(-50%) rotate(-45deg);
   z-index: 10;
-  transition: box-shadow 0.4s ease,
+  transition: box-shadow 0.4s ease;
 }
 
 .forward::before {
   transform: translateX(-65%) translateY(-50%) rotate(135deg);
 }
-
 
 .back:hover,
 .forward:hover {

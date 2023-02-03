@@ -10,8 +10,13 @@ export const initCurrency = () => {
     }
 
     const loadAllCurrencies = async () => {
-      const data = await getCurrencies();
-      dispatch(currencyActions.setCurrency(data[0].symbol));
+      try {
+        const data = await getCurrencies();
+        dispatch(currencyActions.setCurrency(data[0].symbol));
+      } catch(error) {
+        console.log('Something went wrong!')
+        console.log(error);
+      }
     };
     loadAllCurrencies();
   };

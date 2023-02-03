@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ProductAttributes from "../Shopping/ProductAttributes";
+import ProductAttributes from "../Products/ProductAttributes";
 import classes from "./CartItem.module.css";
 import ImageCarousel from "./ImageCarousel";
 

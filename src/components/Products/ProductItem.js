@@ -32,7 +32,7 @@ class ProductItem extends Component {
               {inStock && (
                 <div
                   className={classes[`circle-cart-icon`]}
-                  onClick={this.props.addToCart}
+                  onClick={this.props.onAddToCart}
                 >
                   <img src={circleCartIcon} alt="A quick add to cart!"></img>
                 </div>

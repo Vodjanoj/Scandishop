@@ -62,7 +62,6 @@ export async function getProductsById(id) {
   const {
     data: { product },
   } = await client.query({ query, variables });
-  console.log("product", product);
   return product;
 }
 
@@ -90,7 +89,7 @@ export async function getProductsAttributesById(id) {
       product: { attributes },
     },
   } = await client.query({ query, variables, fetchPolicy: "network-only" });
-  console.log("attributes", attributes);
+
   return attributes;
 }
 
@@ -123,6 +122,5 @@ export async function getProductsByCategory(categoryType) {
     },
   } = await client.query({ query, variables });
 
-  console.log("products", products);
   return products;
 }

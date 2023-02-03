@@ -11,20 +11,20 @@ class ProductAttributesItem extends Component {
       cartOverlay,
       mainCart,
       isColor,
-      changeAtr,
+      onChangeAtr,
       selected,
     } = this.props;
-    console.log("ProductAttributesItem", this.props);
+
     return (
       <>
         <label
-          className={`${classes[`attribute-item`]} ${!isColor &&
-            classes[`not-colored`]} ${cartOverlay &&
-            classes[`cart-overlay`]} ${mainCart && classes[`main-cart`]}`}
+          className={`${classes[`attribute-item`]} ${
+            !isColor ? classes[`not-colored`] : ""
+          } ${cartOverlay ? classes[`cart-overlay`] : ""} ${
+            mainCart ? classes[`main-cart`] : ""
+          }`}
           style={{
             backgroundColor: isColor && value,
-            width: !isColor && !cartOverlay && "63px",
-            height: !isColor && !cartOverlay && "45px",
           }}
         >
           <input
@@ -38,7 +38,7 @@ class ProductAttributesItem extends Component {
               selected[0].selectedAttrItemId === displValue
             }
             disabled={cartOverlay || mainCart}
-            onChange={changeAtr}
+            onChange={onChangeAtr}
           ></input>
           <span
             className={classes.checkmark}

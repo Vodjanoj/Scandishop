@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./Cart.module.css";
-import Backdrop from "./Backdrop";
+import Backdrop from "../UI/Backdrop";
 import CartItem from "./CartItem";
 import { filterPrices } from "../Utils/filterPrices";
 import { cartActions } from "../../store/cart-slice";
@@ -46,7 +46,7 @@ class Cart extends Component {
     const totalPrice = this.calcTotalPriceHandler(setCurrSymbol, products);
 
     let tax = (totalPrice * 0.21).toFixed(2);
-    console.log("Cart", this.props);
+  
     return (
       <>
         <div

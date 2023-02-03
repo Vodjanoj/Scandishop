@@ -16,6 +16,7 @@ class ProductDetail extends Component {
     productDetails: {},
     selectedImage: null,
     selectedAttributes: [],
+    error: false,
   };
 
   selectAttrHandler = (attId, attItemId) => {
@@ -86,20 +87,24 @@ class ProductDetail extends Component {
       // so we have an issue with correct displaying of attributes associated to a specific product
       const attributes = await getProductsAttributesById(productId);
 
-      const selectedAttributes = attributes.map((attribute) => ({
-        id: attribute.id,
-        name: attribute.name,
-        selectedAttrItemId: attribute.items[0].id,
-      }));
+      try {
+        const selectedAttributes = attributes.map((attribute) => ({
+          id: attribute.id,
+          name: attribute.name,
+          selectedAttrItemId: attribute.items[0].id,
+        }));
 
-      this.setState((prevState) => {
-        return {
-          ...prevState,
-          productDetails: { ...product, attributes },
-          selectedImage: product.gallery[0],
-          selectedAttributes: selectedAttributes,
-        };
-      });
+        this.setState((prevState) => {
+          return {
+            ...prevState,
+            productDetails: { ...product, attributes },
+            selectedImage: product.gallery[0],
+            selectedAttributes: selectedAttributes,
+          };
+        });
+      } catch (error) {
+        this.setState({ error: true });
+      }
     };
     loadProductDetailsHandler();
   }
@@ -114,17 +119,22 @@ class ProductDetail extends Component {
       prices,
       inStock,
       description,
+      error,
     } = this.state.productDetails;
 
     const { selectedImage } = this.state;
     const { setCurrSymbol } = this.props;
 
     const sanitizedDescription = DOMPurify.sanitize(description);
-     console.log('attributes', attributes)
+
     let price;
     if (prices && setCurrSymbol !== "") {
       const amount = filterPrices(prices, setCurrSymbol);
       price = amount[0].amount;
+    }
+
+    if (error) {
+      return <p>Sorry, something went wrong</p>;
     }
     return (
       <>
