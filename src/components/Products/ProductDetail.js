@@ -78,16 +78,16 @@ class ProductDetail extends Component {
     const productId = this.props.match.params.productId;
 
     const loadProductDetailsHandler = async () => {
-      const product = await getProductsById(productId);
-
-      // A seperate query with fetchPolicy: "network-only" for getting attributes
-      // of a product from a server, not from cache, by not getting the whole data of a product
-      // from a server with each rendering of a component we save the network traffic.
-      // If we get attributes from cache they are being mixed with attribites of other products,
-      // so we have an issue with correct displaying of attributes associated to a specific product
-      const attributes = await getProductsAttributesById(productId);
-
       try {
+        const product = await getProductsById(productId);
+
+        // A seperate query with fetchPolicy: "network-only" for getting attributes
+        // of a product from a server, not from cache, by not getting the whole data of a product
+        // from a server with each rendering of a component we save the network traffic.
+        // If we get attributes from cache they are being mixed with attribites of other products,
+        // so we have an issue with correct displaying of attributes associated to a specific product
+        const attributes = await getProductsAttributesById(productId);
+
         const selectedAttributes = attributes.map((attribute) => ({
           id: attribute.id,
           name: attribute.name,
@@ -110,7 +110,7 @@ class ProductDetail extends Component {
   }
 
   render() {
-    const { selectedAttributes } = this.state;
+    const { selectedAttributes, error } = this.state;
     const {
       brand,
       name,
@@ -119,7 +119,6 @@ class ProductDetail extends Component {
       prices,
       inStock,
       description,
-      error,
     } = this.state.productDetails;
 
     const { selectedImage } = this.state;
@@ -136,6 +135,7 @@ class ProductDetail extends Component {
     if (error) {
       return <p>Sorry, something went wrong</p>;
     }
+
     return (
       <>
         <div className={classes.card}>

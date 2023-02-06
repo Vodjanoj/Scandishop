@@ -5,6 +5,7 @@ import Cart from "./components/Cart/Cart";
 import ProductDetails from "./components/Products/ProductDetail";
 import { getCategories } from "./graphql/queries";
 import { Route, Switch, Redirect } from "react-router-dom";
+import NotFound from "./components/UI/NotFound";
 
 class App extends Component {
   state = {
@@ -46,6 +47,9 @@ class App extends Component {
             </Route>
             <Route path="/cart">
               <Cart />
+            </Route>
+            <Route path="*">
+              <NotFound />
             </Route>
           </Switch>
         </Layout>
