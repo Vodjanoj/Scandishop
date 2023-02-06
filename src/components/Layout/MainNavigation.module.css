@@ -82,7 +82,7 @@
 
 .toolbar {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   position: relative;
   width: 114px;
   align-items: center;
