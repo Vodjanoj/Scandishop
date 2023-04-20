@@ -56,4 +56,4 @@ Here are some screenshots of the ecommerce shop web application in action:
 ### Cart Page
 ![Cart Page](/src/screenshots/cart.jpg?raw=true)<br />
 ## API
-This frontend part of the ecommerce shop web application communicates with the backend GraphQL API, which is located in a separate repository which can be found at can be found at https://github.com/scandiweb/junior-react-endpoint. Please refer to the backend repository's README.md file for instructions on how to run the server and set up the database.
+This frontend part of the ecommerce shop web application communicates with the backend GraphQL API, which is located in a separate repository which can be found at https://github.com/scandiweb/junior-react-endpoint. Please refer to the backend repository's README.md file for instructions on how to run the server and set up the database.
