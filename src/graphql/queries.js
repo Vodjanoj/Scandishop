@@ -1,6 +1,6 @@
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 
-const GRAPH_URL = "http://localhost:4000/";
+const GRAPH_URL = "https://s-barr.onrender.com/";
 
 export const client = new ApolloClient({
   uri: GRAPH_URL,
