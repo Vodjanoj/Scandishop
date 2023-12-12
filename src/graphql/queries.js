@@ -1,6 +1,6 @@
 import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 
-const GRAPH_URL = "https://serv-f5s2.onrender.com/";
+const GRAPH_URL = "https://serv1-lich.onrender.com/";
 
 export const client = new ApolloClient({
   uri: GRAPH_URL,
