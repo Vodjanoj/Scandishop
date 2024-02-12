@@ -1,6 +1,6 @@
 # Ecommerce Shop
 
-This is the frontend part of an ecommerce shop web application built using React.js. It is a test assignment for Scandiweb company.<br /><br />
+This is the frontend part of an ecommerce shop web application built using React.js.<br /><br />
 
 ## Getting Started
 
